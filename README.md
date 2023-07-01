@@ -14,6 +14,9 @@
         - scout.py
         - send_body_angle.py
         - send_body_ned_velocity.py
+##  HZ ##
+    - shot
+        - shot.py
  ---
  ### 7.1更新 ###
  - **pxy**: 起飞、航行至投弹区代码未测试，识别坐标flag尚未定义 测试切换至master分支

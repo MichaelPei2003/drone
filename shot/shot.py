@@ -11,7 +11,10 @@ connection_string='/dev/ttyACM0'
 vehicle = connect(connection_string, wait_ready=False)
 # 设置目标点
 ### !!! 摄像头的坐标误差
-target_location#晚点再设置吧
+tx=str.split(",")[0]
+ty=str.split(",")[1]
+
+target_location=(lx,ly,2.5)#晚点再设置吧
 
 # 初始化PID控制器
 kp = 0.2  # 比例参数
@@ -23,7 +26,9 @@ last_error = 0
 # 控制循环
 while True:
     # 获取当前位置
-    current_location = vehicle.location.global_relative_frame
+    lx=str.spilt(",")[0]
+    ly=str.split(",")[1]
+    current_location = (lx,ly,2.5)
 
     # 计算误差
     error = target_location - current_location
@@ -47,5 +52,5 @@ while True:
         break
 
     # 等待一段时间
-    time.sleep(0.1)
+    time.sleep(0.5)
 
