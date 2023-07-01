@@ -3,7 +3,7 @@
         - arm_and_takeoff.py
         - send_body_ned_velocity.py
         - takeoff.py  # main
-    	- sim_takeoff.py
+        - sim_takeoff.py
         - to_release_area.py
 ## CYT ##
     - scout
