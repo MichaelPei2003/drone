@@ -1,6 +1,9 @@
 from dronekit import connect, VehicleMode
+from send_body_ned_velocity import send_body_ned_velocity
 import math
 import time
+from index import set_value
+from index import get_value
 
 connection_string = 'udp:127.0.0.1:14550'  
 vehicle = connect(connection_string, wait_ready=True)
@@ -16,7 +19,7 @@ error_sum = 0
 last_error = 0
 
 def control_flight(x, y):
-    global error_sum, last_error
+    global error_sum_x,error_sum_y, last_error_x, last_error_y, speed_x, speed_y
 
     # 计算坐标差异
     dx = x - target_coordinate[0]
@@ -37,16 +40,16 @@ def control_flight(x, y):
     speed_y = Kp * error_y + Ki * error_sum_y + Kd * error_diff_y
     t_y = speed_y / error_y
     
-    if t_x < t_y
+    if t_x < t_y:
         t=t_y
-    else
+    else:
         t=t_x
     
     send_body_ned_velocity(speed_x,speed_y,0,t)
-
+# 更新上一次的误差
     last_error_x = error_x
     last_error_y = error_y
 
-    # 更新上一次的误差
-    last_error = error
+    set_value(0,speed_x)
+    set_value(1,speed_y)
 

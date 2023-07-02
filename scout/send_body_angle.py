@@ -1,7 +1,7 @@
 from dronekit import connect, VehicleMode
 from pymavlink import mavutil
 import time
-def send_body_angle(angle,duration=0):
+def send_body_angle(angle,duration=0,vehicle = None):
     # 设置目标位置，向左转90度
     target_yaw = vehicle.heading + angle  # 目标偏航角为当前偏航角加输入的角度
 

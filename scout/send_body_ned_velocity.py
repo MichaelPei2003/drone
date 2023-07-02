@@ -1,8 +1,9 @@
 from dronekit import connect, VehicleMode
 from pymavlink import mavutil
 import time
+from scout import scout
 
-def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0):
+def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0,vehicle = None):
 
     msg = vehicle.message_factory.set_position_target_local_ned_encode(
 
