@@ -81,7 +81,7 @@ while (current_X<=42&current_X>=98):
     error_priorX = errorX
 
     # 应用控制量到无人机
-    send_body_ned_velocity(controlX*0.1,0,0,0)
+    send_body_ned_velocity(controlX*0.1,0,0,0,vehicle)
 
     # 等待一段时间
     time.sleep(0.1)
@@ -107,7 +107,7 @@ while (current_Y<=25&current_Y>=81):
     error_priorY = errorY
 
     # 应用控制量到无人机
-    send_body_ned_velocity(0,controlY*0.1,0,0)
+    send_body_ned_velocity(0,controlY*0.1,0,0,vehicle)
 
     # 等待一段时间
     time.sleep(0.1)
