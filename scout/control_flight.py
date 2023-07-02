@@ -3,6 +3,9 @@ from send_body_ned_velocity import send_body_ned_velocity
 import math
 import time
 
+from index import set_value
+from index import get_value
+
 connection_string = 'udp:127.0.0.1:14550'  
 vehicle = connect(connection_string, wait_ready=True)
 
@@ -48,5 +51,7 @@ def control_flight(x, y):
     last_error_x = error_x
     last_error_y = error_y
 
-    
+    set_value(0,speed_x)
+    set_value(1,speed_y)
+
 

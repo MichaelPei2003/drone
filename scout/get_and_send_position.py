@@ -1,5 +1,8 @@
 from dronekit import connect, VehicleMode
 import time
+from index import set_value
+from index import get_value
+
 # 定义获取并传输位置的函数
 def get_and_send_position(vehicle = None):
     while True:
@@ -10,5 +13,6 @@ def get_and_send_position(vehicle = None):
             current_location.alt
         )
         loc = current_location
+        set_value(7,loc)
         print(location_str)
         time.sleep(1)

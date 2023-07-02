@@ -5,6 +5,8 @@ from dronekit import connect, VehicleMode, LocationGlobalRelative
 from send_body_ned_velocity import send_body_ned_velocity
 from scout import scout
 from get_and_send_position import get_and_send_position
+from index import set_value
+from index import get_value
 
 from pymavlink import mavutil 
  
@@ -13,8 +15,8 @@ connection_string ='/dev/ttyACM0'
 print('Connectingto vehicle on: %s' % connection_string) 
 vehicle = connect(connection_string, wait_ready=False) 
 
-
 loc = vehicle.location.global_relative_frame
+set_value(7,loc)
 
 position_thread = Thread(target = get_and_send_position(vehicle))
 position_thread.daemon = True
@@ -23,13 +25,17 @@ position_thread.start()
 cir_num=0
 cir=[]
 cyl=0
+set_value(6,cyl)
 
 flag=0
 start_time=time.time()
 while flag != 1:
     duration=4
+    set_value(2,duration)
     v_x=1
     v_y=0
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
     if cyl == 1 :
         scout(loc)
@@ -37,8 +43,11 @@ while flag != 1:
 
     start_time=time.time()
     duration=7
+    set_value(2,duration)
     v_x = 0
     v_y = -1
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(0,-1,0,duration)
     if cyl == 1 :
         scout(loc)
@@ -46,8 +55,11 @@ while flag != 1:
 
     start_time = time.time()
     duration=4
+    set_value(2,duration)
     v_x = -1
     v_y = 0
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(v_x,v_y,0,duration)
     if cyl == 1 :
         scout(loc)
@@ -55,8 +67,11 @@ while flag != 1:
 
     start_time = time.time()
     duration = 7
+    set_value(2,duration)
     v_x = 0
     v_y = 1
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(v_x,v_y,0,duration)
     if cyl == 1 :
         scout(loc)
@@ -64,8 +79,11 @@ while flag != 1:
     
     start_time = time.time()
     duration = 1
+    set_value(2,duration)
     v_x = 1
     v_y = 1
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(v_x,v_y,0,duration)
     if cyl == 1 :
         scout(loc)
@@ -73,8 +91,11 @@ while flag != 1:
 
     start_time = time.time()
     duration = 5
+    set_value(2,duration)
     v_x = 0
     v_y = -1
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(v_x,v_y,0,duration)
     if cyl == 1 :
         scout(loc)
@@ -82,8 +103,11 @@ while flag != 1:
 
     start_time = time.time()
     duration = 1
+    set_value(2,duration)
     v_x = 1
     v_y = 0
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(v_x, v_y, 0, duration)
     if cyl == 1 :
         scout(loc)
@@ -91,8 +115,11 @@ while flag != 1:
 
     start_time = time.time()
     duration = 5
+    set_value(2,duration)
     v_x = 0
     v_y = 1
+    set_value(4,v_x)
+    set_value(5,v_y)
     send_body_ned_velocity(v_x, v_y, 0, duration)
     if cyl == 1 :
         scout(loc)
