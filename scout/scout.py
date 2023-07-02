@@ -7,7 +7,6 @@ from control_flight import control_flight
 from index import set_value
 from index import get_value
 
-import example1
 
 def scout(location, vehicle = None):
     #记录此刻的位置，并停住
@@ -45,13 +44,13 @@ def scout(location, vehicle = None):
     time.sleep(5)
     duration = get_value(2)
     start_time = get_value(3)
-    v_x=get_value(4)
-    v_y=get_value(5)
-    rest_time=duration-(now_time-start_time)
+    v_x = get_value(4)
+    v_y = get_value(5)
+    rest_time = duration-(now_time-start_time)
     send_body_ned_velocity(v_x,v_y,0,rest_time)
     
     #依靠相对位置
-    # send_body_ned_velocity(-ori_x,-ori_y,0,1)
+    
     cyl = get_value(6)
     loc = get_value(7)
     if cyl == 1 :# 看到圆筒

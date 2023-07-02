@@ -29,6 +29,9 @@ set_value(6,cyl)
 
 flag=0
 start_time=time.time()
+set_value(3,start_time)
+
+#路线：↑←↓→↖←↑→
 while flag != 1:
     duration=4
     set_value(2,duration)
@@ -42,6 +45,7 @@ while flag != 1:
     time.sleep(10)
 
     start_time=time.time()
+    set_value(3,start_time)
     duration=7
     set_value(2,duration)
     v_x = 0
@@ -54,6 +58,7 @@ while flag != 1:
     time.sleep(10)
 
     start_time = time.time()
+    set_value(3,start_time)
     duration=4
     set_value(2,duration)
     v_x = -1
@@ -66,6 +71,7 @@ while flag != 1:
     time.sleep(10)
 
     start_time = time.time()
+    set_value(3,start_time)
     duration = 7
     set_value(2,duration)
     v_x = 0
@@ -78,6 +84,7 @@ while flag != 1:
     time.sleep(10)
     
     start_time = time.time()
+    set_value(3,start_time)
     duration = 1
     set_value(2,duration)
     v_x = 1
@@ -90,6 +97,7 @@ while flag != 1:
     time.sleep(10)
 
     start_time = time.time()
+    set_value(3,start_time)
     duration = 5
     set_value(2,duration)
     v_x = 0
@@ -102,6 +110,7 @@ while flag != 1:
     time.sleep(10)
 
     start_time = time.time()
+    set_value(3,start_time)
     duration = 1
     set_value(2,duration)
     v_x = 1
@@ -114,6 +123,7 @@ while flag != 1:
     time.sleep(10)
 
     start_time = time.time()
+    set_value(3,start_time)
     duration = 5
     set_value(2,duration)
     v_x = 0

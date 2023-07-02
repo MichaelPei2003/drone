@@ -20,7 +20,7 @@ error_sum = 0
 last_error = 0
 
 def control_flight(x, y):
-    global error_sum_x,error_sum_y, last_error_x, last_error_y, speed_x, speed_y
+    global error_sum_x, error_sum_y, last_error_x, last_error_y, speed_x, speed_y
 
     # 计算坐标差异
     dx = x - target_coordinate[0]
@@ -31,7 +31,7 @@ def control_flight(x, y):
 
     error_x = dx
     error_sum_x += error_x
-    error_diff_x = error_x-last_error_x
+    error_diff_x = error_x - last_error_x
     speed_x = Kp * error_x + Ki * error_sum_x + Kd * error_diff_x
     t_x = speed_x / error_x
 
@@ -41,10 +41,10 @@ def control_flight(x, y):
     speed_y = Kp * error_y + Ki * error_sum_y + Kd * error_diff_y
     t_y = speed_y / error_y
     
-    if t_x < t_y:
-        t=t_y
-    else:
-        t=t_x
+    if t_x < t_y :
+        t = t_y
+    else :
+        t = t_x
     
     send_body_ned_velocity(speed_x,speed_y,0,t)
 # 更新上一次的误差
