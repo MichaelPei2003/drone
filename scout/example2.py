@@ -26,7 +26,7 @@ v_y = 0
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -37,7 +37,7 @@ v_y = -1
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -48,7 +48,7 @@ v_y = 0
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -59,7 +59,7 @@ v_y = -1
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -67,7 +67,7 @@ set_value(3,start_time)
 duration = 4
 v_x = 1
 v_y = 0
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -78,7 +78,7 @@ v_y = -1
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -89,7 +89,7 @@ v_y = 0
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -100,7 +100,7 @@ v_y = -1
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -111,7 +111,7 @@ v_y = 0
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -122,7 +122,7 @@ v_y = -1
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -133,7 +133,7 @@ v_y = 0
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -144,7 +144,7 @@ v_y = -1
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -155,7 +155,7 @@ v_y = 0
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
-send_body_ned_velocity(v_x,v_y,0,duration)
+send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
 

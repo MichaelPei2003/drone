@@ -52,7 +52,7 @@ while flag != 1:
     v_y = -1
     set_value(4,v_x)
     set_value(5,v_y)
-    send_body_ned_velocity(0,-1,0,duration)
+    send_body_ned_velocity(0,-1,0,duration,vehicle)
     if cyl == 1 :
         scout(loc)
     time.sleep(10)
@@ -65,7 +65,7 @@ while flag != 1:
     v_y = 0
     set_value(4,v_x)
     set_value(5,v_y)
-    send_body_ned_velocity(v_x,v_y,0,duration)
+    vehicle.send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
     if cyl == 1 :
         scout(loc)
     time.sleep(10)
@@ -78,7 +78,7 @@ while flag != 1:
     v_y = 1
     set_value(4,v_x)
     set_value(5,v_y)
-    send_body_ned_velocity(v_x,v_y,0,duration)
+    send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
     if cyl == 1 :
         scout(loc)
     time.sleep(10)
@@ -91,7 +91,7 @@ while flag != 1:
     v_y = 1
     set_value(4,v_x)
     set_value(5,v_y)
-    send_body_ned_velocity(v_x,v_y,0,duration)
+    send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
     if cyl == 1 :
         scout(loc)
     time.sleep(10)
@@ -104,7 +104,7 @@ while flag != 1:
     v_y = -1
     set_value(4,v_x)
     set_value(5,v_y)
-    send_body_ned_velocity(v_x,v_y,0,duration)
+    send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
     if cyl == 1 :
         scout(loc)
     time.sleep(10)
@@ -117,7 +117,7 @@ while flag != 1:
     v_y = 0
     set_value(4,v_x)
     set_value(5,v_y)
-    send_body_ned_velocity(v_x, v_y, 0, duration)
+    send_body_ned_velocity(v_x, v_y, 0, duration,vehicle)
     if cyl == 1 :
         scout(loc)
     time.sleep(10)
@@ -130,7 +130,7 @@ while flag != 1:
     v_y = 1
     set_value(4,v_x)
     set_value(5,v_y)
-    send_body_ned_velocity(v_x, v_y, 0, duration)
+    send_body_ned_velocity(v_x, v_y, 0, duration,vehicle)
     if cyl == 1 :
         scout(loc)
     time.sleep(10)
