@@ -19,23 +19,23 @@ time.sleep(1)
 Lx=str.split(',',2)[0]
 Ly=str.split(',',2)[1]
 while True:
-    if Lx<=42
+    if Lx<=42:
         addx=42-Lx
         send_body_ned_velocity(addx*0.01,0,0,0)
         time.sleep(1)
-    elif Lx>=98
+    elif Lx>=98:
         delx=Lx-98
         send_body_ned_velocity(delx*-0.01,0,0,0)
         time.sleep(1)
-    if Ly<=25
+    if Ly<=25:
         addy=25-Ly
         send_body_ned_velocity(0,addy*0.01,0,0)
         time.sleep(1)
-    elif Ly>=81
+    elif Ly>=81:
         dely=Ly-98
         send_body_ned_velocity(0,dely*-0.01,0,0)
         time.sleep(1)
-    if (Lx<98&Lx>42&Ly<81&Ly>25)
+    if (Lx<98&Lx>42&Ly<81&Ly>25):
         vehicle.mode = VehicleMode("LAND")
         break
 
