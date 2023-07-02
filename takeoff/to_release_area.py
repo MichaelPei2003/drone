@@ -1,5 +1,5 @@
 import time 
-from ..general_flight_controls.send_body_ned_velocity import send_body_ned_velocity
+from send_body_ned_velocity import send_body_ned_velocity
 
 def to_release_area(vehicle):
     #30m
