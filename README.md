@@ -14,6 +14,7 @@
         - scout.py
         - send_body_angle.py
         - send_body_ned_velocity.py
+        - index.py
 ##  HZ ##
     - shot
         - shot.py
