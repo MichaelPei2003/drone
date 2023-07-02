@@ -14,7 +14,7 @@ vehicle = connect(connection_string, wait_ready=False)
 tx=str.split(",")[0]
 ty=str.split(",")[1]
 
-target_location=(lx,ly,2.5)#晚点再设置吧
+target_location=(tx,ty,2.5)#晚点再设置吧
 
 # 初始化PID控制器
 kp = 0.2  # 比例参数
@@ -47,10 +47,10 @@ while True:
     vehicle.send_body_ned_velocity(vx, vy, vz)
 
     # 检查是否到达目标点
-    if error.lat < 0.00001 and error.lon < 0.00001 and error.alt < 0.1:
+    if error.lat < 0.001 and error.lon < 0.001 and error.alt < 0.1:
         print("Reached target location")
         break
 
     # 等待一段时间
-    time.sleep(0.5)
+    time.sleep(0.2)
 
