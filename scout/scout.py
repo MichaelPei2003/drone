@@ -4,8 +4,6 @@ from dronekit import connect, VehicleMode
 from pymavlink import mavutil
 from send_body_ned_velocity import send_body_ned_velocity
 from control_flight import control_flight
-from index import set_value
-from index import get_value
 
 import example1
 
@@ -25,8 +23,6 @@ def scout(location, vehicle = None):
 
         # 控制飞行
         control_flight(x, y)
-        speed_x = get_value(0)
-        speed_y = get_value(1)
         if speed_x == 0 and speed_y == 0 :
             break
 
@@ -43,16 +39,10 @@ def scout(location, vehicle = None):
     #依靠经纬度
     vehicle.simple_goto(now_loc)
     time.sleep(5)
-    duration = get_value(2)
-    start_time = get_value(3)
-    v_x=get_value(4)
-    v_y=get_value(5)
     rest_time=duration-(now_time-start_time)
     send_body_ned_velocity(v_x,v_y,0,rest_time)
     
     #依靠相对位置
     send_body_ned_velocity(-ori_x,-ori_y,0,1)
-    cyl = get_value(6)
-    loc = get_value(7)
     if cyl == 1 :# 看到圆筒
         scout(loc)
