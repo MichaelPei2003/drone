@@ -1,11 +1,11 @@
-from dronekit import connect, VehicleMode, LocationGlobalRelative
+from dronekit import connect, VehicleMode
 import time 
 
 def arm_and_takeoff(aTargetAltitude, vehicle):
     print("Basic pre-armchecks")
     #If problem occurs do following loop 
     while not vehicle.is_armable: 
-        print(" Waiting for vehicle toinitialise...") 
+        print(" Waiting for vehicle to initialise...") 
         time.sleep(1)
          
     #Pre-arm check passed, arm vehicle

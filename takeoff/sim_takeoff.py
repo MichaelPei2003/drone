@@ -1,6 +1,4 @@
-import time 
-from dronekit import connect, VehicleMode, LocationGlobalRelative 
-from pymavlink import mavutil
+from dronekit import connect
 from arm_and_takeoff import arm_and_takeoff
 from to_release_area import to_release_area
 
