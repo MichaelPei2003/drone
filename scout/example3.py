@@ -14,6 +14,9 @@ connection_string ='/dev/ttyACM0'
 print('Connectingto vehicle on: %s' % connection_string) 
 vehicle = connect(connection_string, wait_ready=False) 
 
+set_value(8,vehicle)
+
+cyl = 0
 
 #路线2
 #←↑→↑←↑→
@@ -27,6 +30,10 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
+if cyl == 1 :
+    loc = get_value(7)
+    scout(loc)
+time.sleep(10)
 time.sleep(5)
 
 start_time = time.time()
@@ -38,6 +45,9 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
+if cyl == 1 :
+    loc = get_value(7)
+    scout(loc)
 time.sleep(5)
 
 start_time = time.time()
@@ -49,6 +59,9 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
+if cyl == 1 :
+    loc = get_value(7)
+    scout(loc)
 time.sleep(5)
 
 start_time = time.time()
@@ -60,6 +73,9 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
+if cyl == 1 :
+    loc = get_value(7)
+    scout(loc)
 time.sleep(5)
 
 start_time = time.time()
@@ -71,6 +87,9 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
+if cyl == 1 :
+    loc = get_value(7)
+    scout(loc)
 time.sleep(5)
 
 start_time = time.time()
@@ -82,6 +101,9 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
+if cyl == 1 :
+    loc = get_value(7)
+    scout(loc)
 time.sleep(5)
 
 start_time = time.time()
@@ -93,6 +115,9 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
+if cyl == 1 :
+    loc = get_value(7)
+    scout(loc)
 time.sleep(5)
 
 

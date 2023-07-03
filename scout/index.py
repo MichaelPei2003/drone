@@ -23,3 +23,4 @@ def get_value(key,defValue=None):
 #5,v_y    #巡航的y速度
 #6,cyl    #是否检测到圆筒
 #7,loc    #位置
+#8,vehicle    #所连接的无人机

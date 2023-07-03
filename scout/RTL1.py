@@ -1,3 +1,10 @@
+from dronekit import connect, VehicleMode, LocationGlobalRelative 
+
+from index import set_value
+from index import get_value
+
+vehicle = get_value(8)
+
 # 发送"返航"指令 
 print("Returning to Launch") 
 # 返航，只需将无人机的飞行模式切换成"RTL(Return to Launch)" 

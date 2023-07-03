@@ -47,9 +47,15 @@ def scout(location, vehicle = None):
     v_x = get_value(4)
     v_y = get_value(5)
     rest_time = duration-(now_time-start_time)
-    send_body_ned_velocity(v_x,v_y,0,rest_time)
+    send_body_ned_velocity(v_x,v_y,0,rest_time,vehicle)
     
     #依靠相对位置
+    duration = get_value(2)
+    start_time = get_value(3)
+    v_x = get_value(4)
+    v_y = get_value(5)
+    rest_time = duration-(now_time-start_time)
+    send_body_ned_velocity(v_x,v_y,0,rest_time)
     
     cyl = get_value(6)
     loc = get_value(7)
