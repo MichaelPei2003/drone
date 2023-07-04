@@ -63,7 +63,7 @@ derivativeY = 0  # 微分
 
 current_X=str.split(',',2)[0]# 测量当前X坐标
 current_Y=str.split(',',2)[1]# 测量当前Y坐标
-while (current_X<=42&current_X>=98):
+while (current_X<=42 or current_X>=98):
 
     # 计算误差
     errorX = target_X - current_X
@@ -89,7 +89,7 @@ while (current_X<=42&current_X>=98):
     # 测量当前X坐标
     current_X=str.split(',',2)[0]
 
-while (current_Y<=25&current_Y>=81):
+while (current_Y<=25 or current_Y>=81):
 
     # 计算误差
     errorY = target_Y - current_Y

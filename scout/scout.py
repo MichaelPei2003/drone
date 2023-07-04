@@ -8,11 +8,11 @@ from index import set_value
 from index import get_value
 
 
-def scout(location, vehicle = None):
+def scout(direction, vehicle = None):
     #记录此刻的位置，并停住
     time.sleep(5)
     now_time=time.time()
-    now_loc=location
+    # now_loc=location
     
     #pid，运行到圆筒的正上方
     
@@ -39,15 +39,15 @@ def scout(location, vehicle = None):
 
     #回到原来的巡航路线上
     
-    #依靠经纬度
-    vehicle.simple_goto(now_loc)
-    time.sleep(5)
-    duration = get_value(2)
-    start_time = get_value(3)
-    v_x = get_value(4)
-    v_y = get_value(5)
-    rest_time = duration-(now_time-start_time)
-    send_body_ned_velocity(v_x,v_y,0,rest_time,vehicle)
+    # #依靠经纬度
+    # vehicle.simple_goto(now_loc)
+    # time.sleep(5)
+    # duration = get_value(2)
+    # start_time = get_value(3)
+    # v_x = get_value(4)
+    # v_y = get_value(5)
+    # rest_time = duration-(now_time-start_time)
+    # send_body_ned_velocity(v_x,v_y,0,rest_time,vehicle)
     
     #依靠相对位置
     duration = get_value(2)
