@@ -20,7 +20,7 @@ def PidControl(x,y,vehicle):
     derivativeY = 0  # 微分
     current_X=x# 测量当前X坐标
     current_Y=y# 测量当前Y坐标
-    while (current_X<=42 and current_X>=98):
+    while (current_X<=42 or current_X>=98):
         # 计算误差
         errorX = target_X - current_X
         # 计算积分
@@ -38,7 +38,7 @@ def PidControl(x,y,vehicle):
         # 测量当前X坐标
         current_X=x
 
-    while (current_Y<=25 and current_Y>=81):
+    while (current_Y<=25 or current_Y>=81):
         # 计算误差
         errorY = target_Y - current_Y
         # 计算积分
