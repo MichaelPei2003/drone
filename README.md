@@ -8,14 +8,9 @@
         - __init__.py
 ## CYT ##
     - scout
-        - example1.py
-        - example2.py
-        - example3.py
-        - get_and_send_position.py
+        - example_main.py
         - scout.py
-        - send_body_angle.py
         - send_body_ned_velocity.py
-        - index.py
 ##  HZ ##
     - shot
         - shot.py
