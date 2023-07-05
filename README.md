@@ -1,10 +1,11 @@
 ## PXY ##
     - takeoff
+        - .old
+            - to_release_area.py
         - arm_and_takeoff.py
         - send_body_ned_velocity.py
         - takeoff.py
         - sim_takeoff.py
-        - _old_to_release_area.py
         - __init__.py
 ## CYT ##
     - scout
