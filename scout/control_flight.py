@@ -3,8 +3,8 @@ from send_body_ned_velocity import send_body_ned_velocity
 import math
 import time
 
-from index import set_value
-from index import get_value
+from scout.useless.index import set_value
+from scout.useless.index import get_value
 
 connection_string = 'udp:127.0.0.1:14550'  
 vehicle = connect(connection_string, wait_ready=True)
@@ -20,21 +20,13 @@ error_sum = 0
 last_error = 0
 
 def control_flight(x, y):
-    global error_sum_x, error_sum_y
-    error_sum_x = 0
+    global error_sum_y
     error_sum_y = 0
     # 计算坐标差异
     dy = x - target_coordinate[1]
-    dx = y - target_coordinate[0]
 
     # 当目标点在当前点的左侧时，dx 为负值；当目标点在当前点的右侧时，dx 为正值
     # 当目标点在当前点的后方时，dy 为负值；当目标点在当前点的前方时，dy 为正值
-
-    # error_x = dx
-    # error_sum_x += error_x
-    # error_diff_x = error_x - last_error_x
-    # speed_x = Kp * error_x + Ki * error_sum_x + Kd * error_diff_x
-    # t_x = speed_x / error_x
 
     error_y = dy
     error_sum_y += error_y
@@ -47,12 +39,10 @@ def control_flight(x, y):
     # else :
     #     t = t_x
     
-    send_body_ned_velocity(0,speed_y,0,t_y)    #仅在y轴上运动
+    send_body_ned_velocity(0,speed_y,0,t_y)    #仅在左右方向上运动
 # 更新上一次的误差
-    # last_error_x = error_x
+
     last_error_y = error_y
 
-    # set_value(0,speed_x)
-    set_value(1,speed_y)
 
 

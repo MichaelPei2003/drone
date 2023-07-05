@@ -1,7 +1,7 @@
 from dronekit import connect, VehicleMode
 import time
-from index import set_value
-from index import get_value
+from scout.useless.index import set_value
+from scout.useless.index import get_value
 
 # 定义获取并传输位置的函数
 def get_and_send_position(vehicle = None):

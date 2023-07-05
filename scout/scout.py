@@ -4,11 +4,11 @@ from dronekit import connect, VehicleMode
 from pymavlink import mavutil
 from send_body_ned_velocity import send_body_ned_velocity
 from control_flight import control_flight
-from index import set_value
-from index import get_value
+from scout.useless.index import set_value
+from scout.useless.index import get_value
 
 
-def scout(direction, vehicle = None):
+def scout(v_x,v_y,duration,start_time,vehicle = None):
     #记录此刻的位置，并停住
     time.sleep(5)
     now_time=time.time()
@@ -37,25 +37,10 @@ def scout(direction, vehicle = None):
 
     #回到原来的巡航路线上
     
-    # #依靠经纬度
-    # vehicle.simple_goto(now_loc)
-    # time.sleep(5)
-    # duration = get_value(2)
-    # start_time = get_value(3)
-    # v_x = get_value(4)
-    # v_y = get_value(5)
-    # rest_time = duration-(now_time-start_time)
-    # send_body_ned_velocity(v_x,v_y,0,rest_time,vehicle)
-    
     #依靠相对位置
-    duration = get_value(2)
-    start_time = get_value(3)
-    v_x = get_value(4)
-    v_y = get_value(5)
     rest_time = duration-(now_time-start_time)    #计算按原来路径运动时剩余的时间
     send_body_ned_velocity(v_x,v_y,0,rest_time)    #继续按原来的路径运动
-    
+    now_time=time.time()
     cyl = get_value(6)
-    loc = get_value(7)
     if cyl == 1 :# 看到圆筒
-        scout(loc)
+        scout(v_x,v_y,rest_time,now_time)

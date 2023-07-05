@@ -4,9 +4,9 @@ from dronekit import connect, VehicleMode, LocationGlobalRelative
 
 from send_body_ned_velocity import send_body_ned_velocity
 from scout import scout
-from get_and_send_position import get_and_send_position
-from index import set_value
-from index import get_value
+from scout.useless.get_and_send_position import get_and_send_position
+from scout.useless.index import set_value
+from scout.useless.index import get_value
 
 from pymavlink import mavutil 
  
