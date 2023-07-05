@@ -40,3 +40,8 @@
     - 废弃了to_release_area.py，原有takeoff.py文件中均删除相应内容
     - 根目录下test_transfer.py整合了原有takeoff.py的内容
     - 新增了__init__.py用于调用子文件夹中的模块
+ - **cyt**：
+    - 把运动路径改为了：←↑→
+    - 改变了调用参数的方法
+    - 删除了一些实际没有用到的变量
+    - 把一些没用的文件放到了useless文件夹下 
