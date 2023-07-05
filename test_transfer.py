@@ -45,9 +45,9 @@ run_servo = 0
 
 #takeoff and leave takeoff area
 arm_and_takeoff(1, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
-for i in range(15):
+for i in range(10):
     send_body_ned_velocity(0.8, 0, 0, vehicle)
-
+    time.sleep(1)
 
 while True:
     # 读取一帧图像

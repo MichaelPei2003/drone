@@ -4,7 +4,8 @@
         - send_body_ned_velocity.py
         - takeoff.py
         - sim_takeoff.py
-        - to_release_area.py
+        - _old_to_release_area.py
+        - __init__.py
 ## CYT ##
     - scout
         - example1.py
@@ -37,4 +38,9 @@
  ### 7.3更新 ###
  - **cyt**:确定了侦查到圆筒时飞机的飞行逻辑，在向左飞时，如果有看见圆筒，则往最左边圆筒偏移，在向右飞时，如果有看见圆筒，则往最右边圆筒偏移，都只在左右方向上移动，运行路径为：←↑→↑←↑→
  ### 7.5更新 ###
- - **pxy**:修改了前往投弹区控制逻辑，子文件夹中新增__init__.py
+ - **pxy**:
+    - 修改了前往投弹区控制逻辑
+    - 新增test_takeoff.py用于实机飞行测试
+    - 废弃了to_release_area.py，原有takeoff.py文件中均删除相应内容
+    - 根目录下test_transfer.py整合了原有takeoff.py的内容
+    - 新增了__init__.py用于调用子文件夹中的模块
