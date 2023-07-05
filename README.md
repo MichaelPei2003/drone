@@ -8,6 +8,7 @@
         - __init__.py
 ## CYT ##
     - scout
+        - control_flight.py
         - example_main.py
         - scout.py
         - send_body_ned_velocity.py
