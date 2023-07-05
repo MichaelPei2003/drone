@@ -23,7 +23,7 @@ def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0,vehicl
 
         0, 0)
 
-    for x in range(0,duration):
+    for x in range(0,duration*1):
 
         vehicle.send_mavlink(msg)
 

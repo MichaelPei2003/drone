@@ -24,7 +24,7 @@ def scout(direction, vehicle = None):
 
         # 控制飞行
         control_flight(x, y)
-        if x <= 10 :    #如果在xoy坐标系上的x坐标小于10
+        if x <= 330 and x >= 310 :    #如果在xoy坐标系上的x坐标小于10
             break
 
         time.sleep(1)  # 此处为每秒执行一次循环，之后要根据摄像头帧率调整延时
