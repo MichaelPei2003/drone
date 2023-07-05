@@ -16,24 +16,23 @@ vehicle = connect(connection_string, wait_ready=False)
 
 set_value(8,vehicle)
 
-cyl = 0
+cyl = 0    #是否检测到圆筒，初始值为0指未检测到
 
 #路线2
 #←↑→↑←↑→
 
 start_time = time.time()
 set_value(3,start_time)
-duration = 7
-v_x = 0
-v_y = -1
+duration = 7    #运动的持续时间
+v_x = 0    #飞机在前后方向上的速度，前为正
+v_y = -1    #飞机在左右方向上的速度，右为正
 set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :
+if cyl == 1 :    #检测到圆筒
     loc = get_value(7)
     scout(loc)
-time.sleep(10)
 time.sleep(5)
 
 start_time = time.time()
@@ -45,9 +44,6 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :
-    loc = get_value(7)
-    scout(loc)
 time.sleep(5)
 
 start_time = time.time()
@@ -73,9 +69,6 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :
-    loc = get_value(7)
-    scout(loc)
 time.sleep(5)
 
 start_time = time.time()
@@ -101,9 +94,6 @@ set_value(2,duration)
 set_value(4,v_x)
 set_value(5,v_y)
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :
-    loc = get_value(7)
-    scout(loc)
 time.sleep(5)
 
 start_time = time.time()

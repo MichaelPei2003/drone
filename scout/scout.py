@@ -24,9 +24,7 @@ def scout(direction, vehicle = None):
 
         # 控制飞行
         control_flight(x, y)
-        speed_x = get_value(0)
-        speed_y = get_value(1)
-        if speed_x == 0 and speed_y == 0 :
+        if x <= 10 :    #如果在xoy坐标系上的x坐标小于10
             break
 
         time.sleep(1)  # 此处为每秒执行一次循环，之后要根据摄像头帧率调整延时
@@ -54,8 +52,8 @@ def scout(direction, vehicle = None):
     start_time = get_value(3)
     v_x = get_value(4)
     v_y = get_value(5)
-    rest_time = duration-(now_time-start_time)
-    send_body_ned_velocity(v_x,v_y,0,rest_time)
+    rest_time = duration-(now_time-start_time)    #计算按原来路径运动时剩余的时间
+    send_body_ned_velocity(v_x,v_y,0,rest_time)    #继续按原来的路径运动
     
     cyl = get_value(6)
     loc = get_value(7)

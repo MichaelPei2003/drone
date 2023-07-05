@@ -47,7 +47,7 @@ def control_flight(x, y):
     # else :
     #     t = t_x
     
-    send_body_ned_velocity(0,speed_y,0,t_y)
+    send_body_ned_velocity(0,speed_y,0,t_y)    #仅在y轴上运动
 # 更新上一次的误差
     # last_error_x = error_x
     last_error_y = error_y

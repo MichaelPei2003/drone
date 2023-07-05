@@ -24,7 +24,7 @@ position_thread.start()
 
 cir_num=0
 cir=[]
-cyl=0
+cyl=0    #是否检测到圆筒，初始值为0指未检测到
 set_value(6,cyl)
 
 flag=0
