@@ -2,7 +2,7 @@
     - takeoff
         - arm_and_takeoff.py
         - send_body_ned_velocity.py
-        - takeoff.py  # main
+        - takeoff.py
         - sim_takeoff.py
         - to_release_area.py
 ## CYT ##
@@ -36,3 +36,5 @@
  - **hjw**:RTL3在RTL2的基础上加入了PID参数控制，补全了pxy最喜欢的调用函数，暂时没有报错，不过必要的P,I,D参数显然还得再试验进行调参
  ### 7.3更新 ###
  - **cyt**:确定了侦查到圆筒时飞机的飞行逻辑，在向左飞时，如果有看见圆筒，则往最左边圆筒偏移，在向右飞时，如果有看见圆筒，则往最右边圆筒偏移，都只在左右方向上移动，运行路径为：←↑→↑←↑→
+ ### 7.5更新 ###
+ - **pxy**:修改了前往投弹区控制逻辑，子文件夹中新增__init__.py
