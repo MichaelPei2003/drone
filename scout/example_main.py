@@ -15,7 +15,7 @@ vehicle = connect(connection_string, wait_ready=False)
 cyl = 0    #是否检测到圆筒，初始值为0指未检测到
 
 #路线2
-#←↑→↑←↑→
+#←↑→
 
 start_time = time.time()
 duration = 7    #运动的持续时间
