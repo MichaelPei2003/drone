@@ -10,6 +10,8 @@ from takeoff.arm_and_takeoff import arm_and_takeoff
 from takeoff.send_body_ned_velocity import send_body_ned_velocity
 
 #connect to drone 
+#for simulation use:
+#connection_string ='192.168.43.169:14550' #RPI's IP, port is always 14550
 connection_string ='/dev/ttyACM0' #Com of current FCM connection
 print('Connectingto vehicle on: %s' % connection_string) 
 vehicle = connect(connection_string, wait_ready=False) 
