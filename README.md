@@ -19,8 +19,10 @@
 ##  HJW ##
     - RTL
         - RTL1.py
-        - RTL2.py
         - RTL3.py
+        - PidControl.py
+        - RTLremake.py
+        - send_body_ned_velocity.py
  ---
  ### 7.1更新 ###
  - **pxy**: 起飞、航行至投弹区代码未测试，识别坐标flag尚未定义 测试切换至master分支
@@ -50,4 +52,3 @@
     - 把三个函数拆开成三段代码
     - 废弃了没有用的RTL2,鉴定为RTL1和RTL3也可以退役了
     - 修改了一下调用和time.sleep
-    - 
