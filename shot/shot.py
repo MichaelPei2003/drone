@@ -101,7 +101,7 @@ def shot(vehicle):
             vz = kp * proportional.alt + ki * integral.alt + kd * derivative.alt
 
             # 发送控制信号
-            send_body_ned_velocity(vx, vy, vz, vehicle)
+            send_body_ned_velocity(vx, vy, vz, dt,vehicle)
 
             # 检查是否到达目标点
             if error.lat < 0.001 and error.lon < 0.001 and error.alt < 0.1:
