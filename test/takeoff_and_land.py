@@ -1,7 +1,7 @@
 from dronekit import connect, VehicleMode
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from ..takeoff.arm_and_takeoff import arm_and_takeoff
+from takeoff.arm_and_takeoff import arm_and_takeoff
 import time
 
 #connect to drone 
@@ -10,8 +10,6 @@ print('Connectingto vehicle on: %s' % connection_string)
 vehicle = connect(connection_string, wait_ready=False) 
 
 arm_and_takeoff(1, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
-
-vehicle.mode = VehicleMode("LOITER")
 
 for i in range(5):
     print(vehicle.mode)
@@ -23,7 +21,7 @@ if(vehicle.mode == "STABILIZE"):
 
 vehicle.mode = VehicleMode("LAND")
 
-while true:
+while True:
     print(vehicle.mode)
     print(vehicle.location.global_relative_frame.alt)
 
