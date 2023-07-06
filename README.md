@@ -6,6 +6,7 @@
         - send_body_ned_velocity.py
         - takeoff.py
         - sim_takeoff.py
+        - takeoff_and_land.py
         - __init__.py
 ## CYT ##
     - scout
@@ -52,3 +53,10 @@
     - 把三个函数拆开成三段代码
     - 废弃了没有用的RTL2,鉴定为RTL1和RTL3也可以退役了
     - 修改了一下调用和time.sleep
+### 7.6更新 ###
+- **pxy**:
+    - GUIDE、LOITER、LAND、ALTHOLD模式实机测试:
+        - 上述模式功能正常
+        - 正常使用LOITER模式需要油门摇杆置于非最低位置，但解锁要求油门摇杆置于最低
+        - 手动接管切换至STABILIZE模式后会被后续程序模式切换命令覆盖，每次进行程序模式切换前建议检测是否处于STABILIZE模式以免影响人工介入
+    - RTL模式有待测试
