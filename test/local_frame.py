@@ -11,4 +11,5 @@ vehicle = connect(connection_string, wait_ready=True)
 
 while True:
     print("Local Location: %s"%vehicle.location.local_frame)
+    time.sleep(0.1)
     

@@ -11,4 +11,4 @@ vehicle = connect(connection_string, wait_ready=True)
 
 while True:
     print("Global Location(relative altitude): %s"%vehicle.location.global_relative_frame)
-    
+    time.sleep(0.1)
