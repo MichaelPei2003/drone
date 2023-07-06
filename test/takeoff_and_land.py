@@ -1,5 +1,7 @@
 from dronekit import connect, VehicleMode
-from arm_and_takeoff import arm_and_takeoff
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from ..takeoff.arm_and_takeoff import arm_and_takeoff
 import time
 
 #connect to drone 

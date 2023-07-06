@@ -7,7 +7,7 @@ import numpy as np
 import socket
 import time
 
-def shot():
+def shot(vehicle):
     # 初始化PID控制器
     dt = 0.1
     kp = 0.2  # 比例参数
@@ -101,7 +101,7 @@ def shot():
             vz = kp * proportional.alt + ki * integral.alt + kd * derivative.alt
 
             # 发送控制信号
-            send_body_ned_velocity(vx, vy, vz)
+            send_body_ned_velocity(vx, vy, vz, vehicle)
 
             # 检查是否到达目标点
             if error.lat < 0.001 and error.lon < 0.001 and error.alt < 0.1:
