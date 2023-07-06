@@ -61,3 +61,5 @@
         - 手动接管切换至STABILIZE模式后会被后续程序模式切换命令覆盖，每次进行程序模式切换前建议检测是否处于STABILIZE模式以免影响人工介入
     - RTL模式有待测试
     - 注:若程序无法切换模式，是由于pymavlink版本过新导致，请运行sudo pip uninstall pymavlink，然后pip install pymavlink==2.4.8
+- **hz**:
+    - 拆封了函数，将函数放在shot.py文件中。增加dt，保证实时性
