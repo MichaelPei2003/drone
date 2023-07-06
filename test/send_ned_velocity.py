@@ -15,24 +15,24 @@ vehicle = connect(connection_string, wait_ready=False)
 arm_and_takeoff(2, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
 
 send_body_ned_velocity(1,0,0,1)
-time.sleep(5)
 print("Go forward 1m")
+time.sleep(5)
 
 send_body_ned_velocity(0,1,0,1)
-time.sleep(5)
 print("Go right 1m")
+time.sleep(5)
 
 send_body_ned_velocity(-1,0,0,1)
-time.sleep(5)
 print("Go back 1m")
+time.sleep(5)
 
 send_body_ned_velocity(0,-1,0,1)
-time.sleep(5)
 print("Go left 1m")
+time.sleep(5)
 
 send_body_ned_velocity(0,0,-1,1)
-time.sleep(5)
 print("Go down 1m")
+time.sleep(5)
 
 
 vehicle.mode=VehicleMode("LAND")
