@@ -1,5 +1,4 @@
 from pymavlink import mavutil
-import time
 
 def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
     
