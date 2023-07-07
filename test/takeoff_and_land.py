@@ -26,4 +26,3 @@ while True:
     print(vehicle.location.global_relative_frame.alt)
 
 #Requires manual exit
-    

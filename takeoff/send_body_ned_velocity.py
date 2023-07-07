@@ -20,7 +20,7 @@ def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
         velocity_x, velocity_y, velocity_z, # m/s
 
         0, 0, 0, # x, y, z acceleration
-
+ 
         0, 0)
 
     vehicle.send_mavlink(msg)
