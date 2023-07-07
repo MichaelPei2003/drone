@@ -76,3 +76,5 @@
     - 手切RTL返航点准确，需在RTL返回返航点后切换至LAND实现自动落地
 - **hjw**:
     - 调整RTL标准参数之后，做到返航高度5米，滞留10秒，降落速度30cm/s，误差现在在80cm左右，目标20cm左右
+- **hz**:
+    -https://stackoverflow.com/questions/76063407/problems-installing-pymavlink-2-4-8
