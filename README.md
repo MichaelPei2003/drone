@@ -28,6 +28,7 @@
  ### 备忘 ###
  - 当前使用的飞控固件版本为arducopter 3.2.1
  - dronekit使用NED坐标系，z轴正方向指向地面，写参数时需要注意
+ - https://mavlink.io/en/messages/common.html (#73, #75, #76)
 
  ### 7.1更新 ###
  - **pxy**: 起飞、航行至投弹区代码未测试，识别坐标flag尚未定义 测试切换至master分支
