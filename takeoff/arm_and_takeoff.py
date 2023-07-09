@@ -6,6 +6,14 @@ def arm_and_takeoff(aTargetAltitude, vehicle):
     #If problem occurs do following loop 
     while not vehicle.is_armable: 
         print(" Waiting for vehicle to initialise...") 
+        if(vehicle.mode =='INITIALISING'):
+            print("vehicle is initialising...")
+        if(vehicle.gps_0.fix_type is None):
+            print("gps_0.fix_type is None...")
+        if(vehicle.gps_0.fix_type <= 1):
+            print("gps_0.fix_type <= 1...")
+        if(vehicle._ekf_predposhorizabs):
+            print("EKF pre-arm is checking...")
         time.sleep(1)
          
     #Pre-arm check passed, arm vehicle
