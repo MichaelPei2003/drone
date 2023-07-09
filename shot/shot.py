@@ -13,8 +13,16 @@ def shot(vehicle):
     kp = 0.2  # 比例参数
     ki = 0.1  # 积分参数
     kd = 0.5  # 微分参数
-    integral = 0
-    last_error = 0
+    error_x = 0
+    error_y = 0
+    proportional_x=0
+    proportional_y=0
+    integral_x = 0
+    integral_y = 0
+    derivative_x=0
+    derivative_y=0
+    last_error_x = 0
+    last_error_y = 0
 
 
     cap = cv2.VideoCapture(0)
@@ -57,6 +65,8 @@ def shot(vehicle):
 
         try:
             #接收数据
+            target_location_x = 0
+            target_location_y = 0
             coord = client_socket.recv(4096)
             coord_str = coord.decode("utf-8")
             if coord_str != '0':
@@ -65,7 +75,8 @@ def shot(vehicle):
 
                 # 设置目标点
                 ### !!! 摄像头的坐标误差
-                target_location=(tx,ty,2.5)#晚点再设置吧
+                target_location_x = int(tx)#晚点再设置吧
+                target_location_y = int(ty)
             else:
                 print(0)
 
@@ -83,31 +94,31 @@ def shot(vehicle):
         # 控制循环
         while True:
             # 获取当前位置
-            lx=320
-            ly=240
-            current_location = (lx,ly,2.5)
+            current_location_x=320
+            current_location_y=240
+
 
             # 计算误差
-            error = target_location - current_location
+            error_x = target_location_x - current_location_x
+            error_y = target_location_y - current_location_y
 
             # 计算PID控制信号
-            proportional = error
-            integral += error*dt
-            derivative = (error - last_error)/dt
-            last_error = error
+            proportional_x = error_x
+            proportional_y = error_y
+            integral_x += error_x*dt
+            integral_y += error_y*dt
+            derivative_x = (error_x - last_error_x)/dt
+            derivative_y = (error_y - last_error_y)/dt
+            last_error_x = error_x
+            last_error_y = error_y
 
-            vx = kp * proportional.lat + ki * integral.lat + kd * derivative.lat
-            vy = kp * proportional.lon + ki * integral.lon + kd * derivative.lon
-            vz = kp * proportional.alt + ki * integral.alt + kd * derivative.alt
+            vx = kp * proportional_x + ki * integral_x + kd * derivative_x
+            vy = kp * proportional_y + ki * integral_y + kd * derivative_y
 
             # 发送控制信号
-            send_body_ned_velocity(vx, vy, vz, dt,vehicle)
+            send_body_ned_velocity(vx, vy, 0, dt,vehicle)
 
             # 检查是否到达目标点
-            if error.lat < 0.001 and error.lon < 0.001 and error.alt < 0.1:
+            if error_x < 0.001 and error_y < 0.001:
                 print("Reached target location")
                 break
-
-            # 等待一段时间
-            time.sleep(0.1)
-
