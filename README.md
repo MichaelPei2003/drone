@@ -20,10 +20,10 @@
 ##  HJW ##
     - RTL
         - RTL1.py
-        - RTL3.py
         - PidControl.py
         - RTLremake.py
-        - send_body_ned_velocity.py
+        - command_long_send.py
+        - example4.py
  ---
  ### 备忘 ###
  - 当前使用的飞控固件版本为arducopter 3.2.1
@@ -79,3 +79,6 @@
     - 调整RTL标准参数之后，做到返航高度5米，滞留10秒，降落速度30cm/s，误差现在在80cm左右，目标20cm左右
 - **hz**:
     -https://stackoverflow.com/questions/76063407/problems-installing-pymavlink-2-4-8
+### 7.9更新 ###
+- **hjw**:
+    - 修正了新的控制函数，更正了Pid坐标设置参数，设置了新的测试代码example4.py
