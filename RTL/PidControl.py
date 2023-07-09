@@ -1,7 +1,11 @@
 from dronekit import connect, VehicleMode
-from send_body_ned_velocity import send_body_ned_velocity
-from pymavlink import mavutil
+from command_long_send import simple_gomin
 import time
+
+# 改为当前连接的pixhawk飞控的端口 
+connection_string ='/dev/ttyACM0' 
+print('Connectingto vehicle on: %s' % connection_string) 
+vehicle = connect(connection_string, wait_ready=False) 
 
 def PidControl(x,y,vehicle):
     # PID参数
@@ -32,7 +36,7 @@ def PidControl(x,y,vehicle):
         # 更新上一次误差
         error_priorX = errorX
         # 应用控制量到无人机
-        send_body_ned_velocity(controlX*0.1,0,0,0,vehicle)
+        simple_gomin(controlX*0.1,0,0,0,vehicle)
         # 等待一段时间
         time.sleep(0.1)
         # 测量当前X坐标
@@ -50,8 +54,10 @@ def PidControl(x,y,vehicle):
         # 更新上一次误差
         error_priorY = errorY
         # 应用控制量到无人机
-        send_body_ned_velocity(0,controlY*0.1,0,0,vehicle)
+        simple_gomin(0,controlY*0.1,0,0,vehicle)
         # 等待一段时间
         time.sleep(0.1)
         # 测量当前Y坐标
         current_Y=x
+#     
+vehicle.mode = VehicleMode("LAND")
