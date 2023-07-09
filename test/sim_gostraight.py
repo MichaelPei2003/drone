@@ -1,7 +1,4 @@
 from dronekit import connect, VehicleMode
-import sys, os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from ..takeoff.arm_and_takeoff import arm_and_takeoff
 import time
 import math
 from pymavlink import mavutil
@@ -21,7 +18,7 @@ def goStraight(vehicle,x,y,z):
         vehicle._master.mav.command_long_send(0, 0, mavutil.mavlink.MAV_CMD_NAV_TAKEOFF_LOCAL,
                                                0, 0, 0, 0, 0, tx, ty, tz)
 
-goStraight(vehicle,5,5,5)
+goStraight(vehicle,10,10,50)
 print("完成")
 time.sleep(5)
 print("程序结束")
