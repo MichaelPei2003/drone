@@ -22,8 +22,8 @@ duration = 5    #运动的持续时间
 v_x = 0    #飞机在前后方向上的速度，前为正
 v_y = -1    #飞机在左右方向上的速度，右为正
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :    #检测到圆筒
-    scout(v_x,v_y,duration,start_time,vehicle)
+# if cyl == 1 :    #检测到圆筒
+#     scout(v_x,v_y,duration,start_time,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -38,8 +38,8 @@ duration = 5
 v_x = 0
 v_y = 1
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :
-    scout(v_x,v_y,duration,start_time,vehicle)
+# if cyl == 1 :
+#     scout(v_x,v_y,duration,start_time,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -47,8 +47,8 @@ duration = 5    #运动的持续时间
 v_x = 0    #飞机在前后方向上的速度，前为正
 v_y = -1    #飞机在左右方向上的速度，右为正
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :    #检测到圆筒
-    scout(v_x,v_y,duration,start_time,vehicle)
+# if cyl == 1 :    #检测到圆筒
+#     scout(v_x,v_y,duration,start_time,vehicle)
 time.sleep(5)
 
 start_time = time.time()
@@ -63,6 +63,6 @@ duration = 5
 v_x = 0
 v_y = 1
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
-if cyl == 1 :
-    scout(v_x,v_y,duration,start_time,vehicle)
+# if cyl == 1 :
+#     scout(v_x,v_y,duration,start_time,vehicle)
 time.sleep(5)
