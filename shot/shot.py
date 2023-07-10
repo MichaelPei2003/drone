@@ -124,7 +124,7 @@ def shot(vehicle):
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
 
         # 发送控制信号
-        send_body_ned_velocity(vx, vy, 0, dt,vehicle)
+        send_body_ned_velocity(vx, vy, 0,vehicle)
 
         # 检查是否到达目标点
         if error_x < 0.001 and error_y < 0.001:
