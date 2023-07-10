@@ -1,12 +1,11 @@
+from dronekit import connect, VehicleMode
 from pymavlink import mavutil
 import time
+#from scout import scout
 
-send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0,vehicle = None):
+def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
 
-    if vehicle == None:
-        print("Vehicle info unknown, please take over controls.")
-
-     vehicle.message_factory.set_position_target_local_ned_send(
+    vehicle.message_factory.set_position_target_local_ned_encode(
 
         0,       # time_boot_ms (not used)
 
@@ -24,3 +23,4 @@ send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0,vehicle = 
 
         0, 0)
 
+    
