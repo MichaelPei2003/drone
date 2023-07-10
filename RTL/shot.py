@@ -3,7 +3,7 @@ import numpy as np
 import socket
 import time
 import pigpio
-import Pidshot
+from Pidshot import Pidshot
 
 def shot(vehicle):
     pi = pigpio.pi()  # 连接到pigpiod守护进程
@@ -62,7 +62,9 @@ def shot(vehicle):
             if coord_str != '0':
                 x, y, flag_servo = coord_str.split(",")
                 print("(",x,",",y,")",flag_servo)
-                Pidshot(x,y,vehicle)
+                dx=int(x)
+                dy=int(y)
+                Pidshot(dx,dy,vehicle)
                 if int(flag_servo) == 1 and run_servo == 0 :
                     try:
                         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置

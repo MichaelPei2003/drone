@@ -1,9 +1,9 @@
 from shot import shot
 from dronekit import connect
-from takeoff import arm_and_takeoff
-import shot
+from arm_and_takeoff import arm_and_takeoff
+from shot import shot
 #connect to drone 
-connection_string ='/dev/ttyACM0' #Com of current FCM connection
+connection_string ='192.168.130.182:14550' #Com of current FCM connection
 print('Connectingto vehicle on: %s' % connection_string) 
 vehicle = connect(connection_string, wait_ready=False) 
 

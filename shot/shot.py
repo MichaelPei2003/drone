@@ -10,9 +10,9 @@ import pigpio
 def shot(vehicle):
     # 初始化PID控制器
     dt = 0.1
-    kp = 0.2  # 比例参数
-    ki = 0.1  # 积分参数
-    kd = 0.5  # 微分参数
+    kp = 0.002  # 比例参数
+    ki = 0.002  # 积分参数
+    kd = 0.005  # 微分参数
     error_x = 0
     error_y = 0
     proportional_x=0
@@ -90,6 +90,7 @@ def shot(vehicle):
 
             else:
                 print(0)
+                continue
         except BlockingIOError:
         # 如果没有新的数据到达，则等待一段时间再次尝试接收
             time.sleep(interval)
@@ -127,6 +128,6 @@ def shot(vehicle):
         send_body_ned_velocity(vx, vy, 0,vehicle)
 
         # 检查是否到达目标点
-        if error_x < 0.001 and error_y < 0.001:
+        if abs(error_x) < 2 and abs(error_y) < 2:
             print("Reached target location")
             break
