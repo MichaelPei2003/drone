@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 import socket
 import time
-
+import pigpio
 def shot(vehicle):
     # 初始化PID控制器
     dt = 0.1
@@ -24,6 +24,14 @@ def shot(vehicle):
     last_error_x = 0
     last_error_y = 0
 
+    pi = pigpio.pi()
+
+    servo_pin = 14
+    servo_min = 1000  # 舵机最小脉冲宽度
+    servo_max = 2000  # 舵机最大脉冲宽度
+    servo_mid = (servo_max - servo_min) / 2 + servo_min
+    pi.set_servo_pulsewidth(servo_pin, 0)  # 停止初始位置抖动
+    pi.set_servo_pulsewidth(servo_pin, servo_min)  # 最小位置
 
     cap = cv2.VideoCapture(0)
     # 设置编码参数
@@ -64,23 +72,24 @@ def shot(vehicle):
         #   cv2.imshow('frame', frame)
 
         try:
-            #接收数据
-            target_location_x = 0
-            target_location_y = 0
+         #接收数据
             coord = client_socket.recv(4096)
             coord_str = coord.decode("utf-8")
             if coord_str != '0':
-                tx, ty, flag_servo = coord_str.split(",")
-                print("(",tx,",",ty,")",flag_servo)
+                x, y, flag_servo = coord_str.split(",")
+                print("(",x,",",y,")",flag_servo)
+                target_location_x = int(x)#晚点再设置吧
+                target_location_y = int(y)
+                if int(flag_servo) == 1 and run_servo == 0 :
+                    try:
+                        pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
+                        time.sleep(1)
+                        run_servo = 1
+                    except:
+                        pass
 
-                # 设置目标点
-                ### !!! 摄像头的坐标误差
-                target_location_x = int(tx)#晚点再设置吧
-                target_location_y = int(ty)
             else:
                 print(0)
-
-            #print('1')
         except BlockingIOError:
         # 如果没有新的数据到达，则等待一段时间再次尝试接收
             time.sleep(interval)
