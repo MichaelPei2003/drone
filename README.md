@@ -17,6 +17,9 @@
         - send_body_ned_velocity.py
 ##  HZ ##
     - shot
+        - send_body_ned_velocity.py
+        - sim_shot_main.py
+        - shot_main.py
         - shot.py
 ##  HJW ##
     - RTL
@@ -88,3 +91,5 @@
     - 试了一下让飞机在空中固定点绕圈的代码，但是看了一下文档发现只能在固定翼上运行，所以还是打算用正常直线的巡航路线来遍历整个场地，多遍历几遍
 - **pxy**:
     - send_body_ned_velocity功能模块有修改，参照takeoff文件夹里的就好
+- **hz**:
+    -sim_shot_main.py在仿真上解决了图传阻塞，飞机速度vx和vy的方向和图传坐标x和y的方向还待考证
