@@ -91,34 +91,33 @@ def shot(vehicle):
 
     
 
-        # 控制循环
-        while True:
-            # 获取当前位置
-            current_location_x=320
-            current_location_y=240
+        
+        # 获取当前位置
+        current_location_x=320
+        current_location_y=240
 
 
-            # 计算误差
-            error_x = target_location_x - current_location_x
-            error_y = target_location_y - current_location_y
+        # 计算误差
+        error_x = target_location_x - current_location_x
+        error_y = target_location_y - current_location_y
 
-            # 计算PID控制信号
-            proportional_x = error_x
-            proportional_y = error_y
-            integral_x += error_x*dt
-            integral_y += error_y*dt
-            derivative_x = (error_x - last_error_x)/dt
-            derivative_y = (error_y - last_error_y)/dt
-            last_error_x = error_x
-            last_error_y = error_y
+        # 计算PID控制信号
+        proportional_x = error_x
+        proportional_y = error_y
+        integral_x += error_x*dt
+        integral_y += error_y*dt
+        derivative_x = (error_x - last_error_x)/dt
+        derivative_y = (error_y - last_error_y)/dt
+        last_error_x = error_x
+        last_error_y = error_y
 
-            vx = kp * proportional_x + ki * integral_x + kd * derivative_x
-            vy = kp * proportional_y + ki * integral_y + kd * derivative_y
+        vx = kp * proportional_x + ki * integral_x + kd * derivative_x
+        vy = kp * proportional_y + ki * integral_y + kd * derivative_y
 
-            # 发送控制信号
-            send_body_ned_velocity(vx, vy, 0, dt,vehicle)
+        # 发送控制信号
+        send_body_ned_velocity(vx, vy, 0, dt,vehicle)
 
-            # 检查是否到达目标点
-            if error_x < 0.001 and error_y < 0.001:
-                print("Reached target location")
-                break
+        # 检查是否到达目标点
+        if error_x < 0.001 and error_y < 0.001:
+            print("Reached target location")
+            break
