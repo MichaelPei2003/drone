@@ -2,12 +2,13 @@
     - takeoff
         - .old
             - to_release_area.py
-        - arm_and_takeoff.py
-        - send_body_ned_velocity.py
-        - takeoff.py
-        - sim_takeoff.py
-        - takeoff_and_land.py
         - __init__.py
+        - arm_and_ned_velocity.py
+        - mav_cmd_test.py
+        - send_body_ned_velocity.py
+        - sim_move.py
+        - sim_takeoff.py
+        - takeoff.py 
 ## CYT ##
     - scout
         - control_flight.py
@@ -85,3 +86,5 @@
 ### 7.10更新 ###
 - **cyt**：
     - 试了一下让飞机在空中固定点绕圈的代码，但是看了一下文档发现只能在固定翼上运行，所以还是打算用正常直线的巡航路线来遍历整个场地，多遍历几遍
+- **pxy**:
+    - send_body_ned_velocity功能模块有修改，参照takeoff文件夹里的就好

@@ -1,4 +1,4 @@
-from dronekit import connect, VehicleMode
+from dronekit import VehicleMode
 import time 
 
 def arm_and_takeoff(aTargetAltitude, vehicle):
