@@ -1,12 +1,12 @@
 from pymavlink import mavutil
 import time
 
-def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0,vehicle = None):
+send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0,vehicle = None):
 
     if vehicle == None:
         print("Vehicle info unknown, please take over controls.")
 
-    msg = vehicle.message_factory.set_position_target_local_ned_send(
+     vehicle.message_factory.set_position_target_local_ned_send(
 
         0,       # time_boot_ms (not used)
 
@@ -24,4 +24,3 @@ def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, duration=0,vehicl
 
         0, 0)
 
-    vehicle.send_mavlink(msg)
