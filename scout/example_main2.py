@@ -20,61 +20,86 @@ arm_and_takeoff(5,vehicle)
 #向前运动4m
 send_body_ned_velocity(1,0,0,4,vehicle)
 time.sleep(5)
+print("4m overed")
 
 #向左旋转90度
 send_body_angle(-90,vehicle)
+time.sleep(3)
+print("turn left 90 degree overed")
 
 #向前运动2m
 send_body_ned_velocity(1,0,0,2,vehicle)
 time.sleep(5)
+print("2m overed")
 
 #向左旋转90度
 send_body_angle(-90,vehicle)
+time.sleep(3)
+print("turn left 90 degree overed")
 
 #向前运动4m
 send_body_ned_velocity(1,0,0,4,vehicle)
 time.sleep(5)
+print("4m overed")
 
 #向右旋转90度
 send_body_angle(90,vehicle)
+time.sleep(3)
+print("turn right 90 degree overed")
 
 #向前运动2米
 send_body_ned_velocity(1,0,0,2,vehicle)
 time.sleep(5)
+print("2m overed")
 
 #向右旋转90度
 send_body_angle(90,vehicle)
+time.sleep(3)
+print("turn right 90 degree")
 
 #向前运动4m
 send_body_ned_velocity(1,0,0,4,vehicle)
 time.sleep(5)
+print("4m overed")
 
 #向左旋转90度
 send_body_angle(-90,vehicle)
+time.sleep(3)
+print("turn left 90 degree overed")
 
 #向前运动2m
 send_body_ned_velocity(1,0,0,2,vehicle)
 time.sleep(5)
+print("2m overed")
 
 #向左旋转90度
 send_body_angle(-90,vehicle)
+time.sleep(3)
+print("turn left 90 degree")
 
 #向前运动4m
 send_body_ned_velocity(1,0,0,4,vehicle)
 time.sleep(5)
+print("4m overed")
 
 #向右旋转90度
 send_body_angle(90,vehicle)
+time.sleep(3)
+print("turn right 90 degree overed")
 
 #向前运动2米
 send_body_ned_velocity(1,0,0,2,vehicle)
 time.sleep(5)
+print("2m overed")
 
 #向右旋转90度
 send_body_angle(90,vehicle)
+time.sleep(3)
+print("turn right 90 degree overed")
 
 #向前运动4m
 send_body_ned_velocity(1,0,0,4,vehicle)
 time.sleep(5)
+print("4m overed")
 
 vehicle.mode = VehicleMode("RTL")
