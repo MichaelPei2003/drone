@@ -92,3 +92,5 @@
 - **pxy**:
     - 现有send_body_ned_velocity模块只能控制直行，往其它方向移动均不可控转圈
     - MAV_CMD_NAV_ATTITUDE_TIME尝试了一下但是模拟中飞机没用动作，有待研究
+- **cyt**：
+    - 因为发现了send_body_ned_velocity只能控制飞机向前运动，所以scout部分选择先用send_body_angle来改变飞机的朝向，再控制飞机向前进
