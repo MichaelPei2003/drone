@@ -9,4 +9,4 @@ vehicle = connect(connection_string, wait_ready=False)
 
 arm_and_takeoff(2,vehicle)
 while True:
-    send_body_ned_velocity(1,0,0,vehicle)
+    send_body_ned_velocity(10,0,0,vehicle)
