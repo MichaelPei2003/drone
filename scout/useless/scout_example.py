@@ -1,5 +1,5 @@
 from dronekit import connect
-from loiter_turns import loiter_turns
+from scout.useless.loiter_turns import loiter_turns
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from takeoff.arm_and_takeoff import arm_and_takeoff

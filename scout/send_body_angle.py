@@ -1,4 +1,4 @@
-from dronekit import connect, VehicleMode
+
 from pymavlink import mavutil
 import time
 def send_body_angle(angle,duration=0,vehicle = None):
