@@ -18,6 +18,10 @@
 ##  HZ ##
     - shot
         - shot.py
+        - sim_shot_main.py
+        - shot_main.py
+        - send_body_ned_velocity.py
+        - arm_and_takeoff.py
 ##  HJW ##
     - RTL
         - RTL1.py
@@ -96,6 +100,9 @@
     - send_body_ned_velocity功能模块有修改，参照takeoff文件夹里的就好
 - **hjw**:
     - 识别和移动经过测试已经能进行数据响应了，但仍然存在移动的方向误差，显然需要改移动和PID参数
+- **hz**:
+    - sim_shot_main.py解决了图传阻塞的问题，飞机速度方向vx和vy的方向和图传返回坐标x和y的方向关系有待确定，
+    - send_body_ned_velocity.py中vy的呈现方式有问题，准备弃用
 ### 7.11更新 ###
 - **pxy**:
     - 现有send_body_ned_velocity模块只能控制直行，往其它方向移动均不可控转圈
