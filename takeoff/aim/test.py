@@ -9,4 +9,4 @@ vehicle = connect("192.168.31.85:14550", wait_ready = False)
 vehicle.mode = VehicleMode("GUIDED")
 
 while True:
-    send_body_ned_velocity(vehicle)
+    send_body_ned_velocity(1, 0, 0, vehicle)

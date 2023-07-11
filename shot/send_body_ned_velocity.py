@@ -11,7 +11,7 @@ def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
 
         0, 0,    # target system, target component
 
-        mavutil.mavlink.MAV_FRAME_BODY_NED, # frame Needs to be MAV_FRAME_BODY_NED for forward/back left/right control.
+        mavutil.mavlink.MAV_FRAME_BODY_FRD, # frame Needs to be MAV_FRAME_BODY_NED for forward/back left/right control.
 
         0b0000111111000111, # type_mask
 

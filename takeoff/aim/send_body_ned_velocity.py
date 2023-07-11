@@ -1,6 +1,6 @@
 from pymavlink import mavutil
 
-def send_body_ned_velocity(vehicle = None):
+def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
     
     if vehicle == None:
         print("Vehicle info unknown, please take over controls.")
