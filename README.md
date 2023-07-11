@@ -25,6 +25,12 @@
         - RTLremake.py
         - command_long_send.py
         - example4.py
+        - Pidshot.py
+        - shot_main.py
+        - arm_and_takeoff.py
+        - shot.py
+        - send_body_ned_velocity.py
+        - 主函数shot_main,调用arm_and_takeoff,然后调用shot，shot里再调用Pidshot，Pidshot调用send_body_ned_velocity,还需要改pid和send_body_ned_velocity
  ---
  ### 备忘 ###
  - 当前使用的飞控固件版本为arducopter 3.2.1
@@ -88,6 +94,8 @@
     - 试了一下让飞机在空中固定点绕圈的代码，但是看了一下文档发现只能在固定翼上运行，所以还是打算用正常直线的巡航路线来遍历整个场地，多遍历几遍
 - **pxy**:
     - send_body_ned_velocity功能模块有修改，参照takeoff文件夹里的就好
+- **hjw**:
+    - 识别和移动经过测试已经能进行数据响应了，但仍然存在移动的方向误差，显然需要改移动和PID参数
 ### 7.11更新 ###
 - **pxy**:
     - 现有send_body_ned_velocity模块只能控制直行，往其它方向移动均不可控转圈
