@@ -4,9 +4,9 @@ def aim(bucket_x, bucket_y, ix, iy, last_error_x, last_error_y, vehicle):
     flag = 0#flag aimed
     # PID
     dt = 0.1
-    kp = 0.2  # 比例参数
-    ki = 0.1  # 积分参数
-    kd = 0.5  # 微分参数
+    kp = 0.02  # 比例参数
+    ki = 0.001  # 积分参数
+    kd = 0.02  # 微分参数
     
     self_x = 320
     self_y = 240
@@ -27,7 +27,7 @@ def aim(bucket_x, bucket_y, ix, iy, last_error_x, last_error_y, vehicle):
     
     print("sending SPD: ", vx, ", ", vy)
     
-    send_body_ned_velocity(vx, vy, vehicle)
+    send_body_ned_velocity(vx, vy, 0, vehicle)
     
     if abs(error_x) < 10 and abs(error_y) < 10:
         flag = 1

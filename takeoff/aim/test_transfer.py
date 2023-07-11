@@ -10,7 +10,7 @@ from arm_and_takeoff import arm_and_takeoff
 from send_body_ned_velocity import send_body_ned_velocity
 from aim import aim
 
-vehicle = connect("192.168.130.182:14550", wait_ready=False) 
+vehicle = connect("192.168.159.182:14550", wait_ready=False) 
 
 pi = pigpio.pi()  # 连接到pigpiod守护进程
 
@@ -48,11 +48,12 @@ last_error_x = 0
 last_error_y = 0
 flag_to_release = 0
 flag_aimed = 1 #avoid getting 0 value
+flag_aimed_ready = 0 #if already aimed
 bucket_x = 320
 bucket_y = 240
 
 #takeoff and leave takeoff area
-arm_and_takeoff(1, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
+arm_and_takeoff(3, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
 for i in range(10):
     send_body_ned_velocity(0.8, 0, 0, vehicle)
     time.sleep(1)
@@ -83,7 +84,8 @@ while True:
         coord = client_socket.recv(4096)
         coord_str = coord.decode("utf-8")
         if coord_str != '0':
-            flag_aimed = 0
+            if flag_aimed_ready == 0:
+                flag_aimed = 0
             x, y, flag_servo = coord_str.split(",")
             bucket_x = int(x)
             bucket_y = int(y)
@@ -100,7 +102,7 @@ while True:
             #如果一直未检测到目标飞行器不会自动停止！！！
             send_body_ned_velocity(0.8, 0, 0, vehicle)#(vx, vy, vz, vehicle)，单位m/s
         if flag_aimed == 0:    
-            ix, iy, last_error_x, last_error_y, flag_aimed = aim(bucket_x, bucket_y, ix, iy, last_error_x, last_error_y, vehicle)
+            ix, iy, last_error_x, last_error_y, flag_aimed_ready = aim(bucket_x, bucket_y, ix, iy, last_error_x, last_error_y, vehicle)
     
         #print('1')
     except BlockingIOError:
