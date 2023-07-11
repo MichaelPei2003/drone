@@ -6,16 +6,7 @@ def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
         print("Vehicle info unknown, please take over controls.")
     
 #    weird behaviers      
-    velocity_x = 1
-    velocity_y = 0
-    velocity_z = 0      
-    vehicle._master.mav.command_long_send(
-        0, 0,
-        mavutil.mavlink.MAV_CMD_DO_SET_REVERSE,
-        0,
-        1
-    )
-    vehicle._master.mav.set_position_target_local_ned_send(#ned is currently abandoned
+    vehicle._master.mav.set_position_target_local_ned_send(
 
         0,       # time_boot_ms (not used)
 
@@ -41,9 +32,9 @@ def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
     #     mavutil.mavlink.MAV_CMD_NAV_ATTITUDE_TIME,
     #     0,  # confirmation
     #     10,  # roll angle (degrees)
-    #     20,  # pitch angle (degrees)
-    #     30,  # yaw angle (degrees)
-    #     0.5, # thrust (0-1)
+    #     0,  # pitch angle (degrees)
+    #     0,  # yaw angle (degrees)
+    #     0.6, # thrust (0-1)
     #     0, 0, 0)
 
         # vehicle._master.mav.set_attitude_target_send(
