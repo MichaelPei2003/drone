@@ -36,3 +36,10 @@ def send_body_ned_velocity(vehicle = None):
     #     30,  # yaw angle (degrees)
     #     0.5, # thrust (0-1)
     #     0, 0, 0)
+
+        vehicle._master.mav.set_attitude_target_send(
+            0,
+            0, 0,
+            0b11000111, # type_mask
+            
+        )
