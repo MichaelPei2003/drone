@@ -1,15 +1,16 @@
 from dronekit import connect, VehicleMode
 import math
 import time
+from send_body_angle import send_body_angle
 
 connection_string = 'udp:127.0.0.1:14550'  
 vehicle = connect(connection_string, wait_ready=False)
 
 target_coordinate = (1, 1)  # 目标坐标，即应投弹时视觉检测出的圆筒中心坐标
 
-Kp = 0.5  #比例环节，比例控制是基于偏差进行调节的，即有差调节
-Ki = 0.1  #积分环节，能对误差进行记忆，主要用于消除静差，提高系统的无差度，积分作用的强弱取决于积分时间常数Ti，Ti越大，积分作用越弱，反之则越强。
-Kd = 0.2  #微分环节，能反映偏差信号的变化趋势(变化速率)，并能在偏差信号值变得太大之前，在系统中引入一个有效的早期修正信号，从而加快系统的动作速度，减小调节时间。
+Kp = 0.05  #比例环节，比例控制是基于偏差进行调节的，即有差调节
+Ki = 0.01  #积分环节，能对误差进行记忆，主要用于消除静差，提高系统的无差度，积分作用的强弱取决于积分时间常数Ti，Ti越大，积分作用越弱，反之则越强。
+Kd = 0.02  #微分环节，能反映偏差信号的变化趋势(变化速率)，并能在偏差信号值变得太大之前，在系统中引入一个有效的早期修正信号，从而加快系统的动作速度，减小调节时间。
 
 # 初始化误差和积分误差
 error_sum = 0
@@ -27,10 +28,10 @@ def control_flight(x, y):
 
     # 当目标点在当前点的左侧时，dx 为负值；当目标点在当前点的右侧时，dx 为正值
     # 当目标点在当前点的后方时，dy 为负值；当目标点在当前点的前方时，dy 为正值
-    # math.atan2用于计算目标点相对于当前点的方向角，反正切函数 math.atan2() 的参数顺序是 (y, x)
+    # math.atan2用于计算目标点相对于当前点的方向角，反正切函数 math.atan2() 的参数顺序是 (y, x)(此处带确认)
     # math.degrees用于将弧度值转为角度
     # 最终计算出目标航向角
-    target_yaw = math.degrees(math.atan2(dy, dx))
+    target_yaw = math.degrees(math.atan2(dx, dy))
 
     # 计算相对于目标航向角的偏转角度
     relative_yaw = target_yaw - vehicle.heading
@@ -56,14 +57,16 @@ def control_flight(x, y):
     # 调整飞行方向
     if relative_yaw > adjustment_angle:
         # 目标在右侧，向右偏转
-        vehicle.simple_goto(vehicle.location.global_relative_frame, vehicle.heading + adjustment_angle)
+        #vehicle.simple_goto(vehicle.location.global_relative_frame, vehicle.heading + adjustment_angle)
+        send_body_angle(adjustment_angle,vehicle)
     elif relative_yaw < -adjustment_angle:
         # 目标在左侧，向左偏转
-        vehicle.simple_goto(vehicle.location.global_relative_frame, vehicle.heading - adjustment_angle)
+        #vehicle.simple_goto(vehicle.location.global_relative_frame, vehicle.heading - adjustment_angle)
+        send_body_angle(-adjustment_angle,vehicle)
     else:
         # 目标在正前方一定误差角内，直行
-        vehicle.simple_goto(vehicle.location.global_relative_frame, vehicle.heading)
-   
+        #vehicle.simple_goto(vehicle.location.global_relative_frame, vehicle.heading)
+        send_body_angle(0,vehicle)
 
 # 循环执行飞行控制
 while True:
