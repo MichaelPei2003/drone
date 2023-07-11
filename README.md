@@ -13,7 +13,6 @@
     - scout
         - control_flight.py
         - example_main.py
-        - scout.py
         - send_body_ned_velocity.py
         - send_body_angle.py
 ##  HZ ##
