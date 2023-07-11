@@ -5,7 +5,7 @@ import time
 connection_string = 'udp:127.0.0.1:14550'  
 vehicle = connect(connection_string, wait_ready=False)
 
-target_coordinate = (1,1)  # 目标坐标，即应投弹时视觉检测出的圆筒中心坐标
+target_coordinate = (1, 1)  # 目标坐标，即应投弹时视觉检测出的圆筒中心坐标
 
 Kp = 0.5  #比例环节，比例控制是基于偏差进行调节的，即有差调节
 Ki = 0.1  #积分环节，能对误差进行记忆，主要用于消除静差，提高系统的无差度，积分作用的强弱取决于积分时间常数Ti，Ti越大，积分作用越弱，反之则越强。
@@ -14,7 +14,7 @@ Kd = 0.2  #微分环节，能反映偏差信号的变化趋势(变化速率)，�
 # 初始化误差和积分误差
 error_sum = 0
 last_error = 0
-error_tolerance=1 #定义误差允许范围
+error_tolerance=0.01 #定义误差允许范围0.01m
 
 def control_flight(x, y):
     global error_sum, last_error
