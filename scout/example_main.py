@@ -18,7 +18,7 @@ cyl = 0    #是否检测到圆筒，初始值为0指未检测到
 #路线2
 #←↑→
 
-send_body_angle(-90,5)
+send_body_angle(-90,5,vehicle)
 
 start_time = time.time()
 duration = 5    #运动的持续时间
@@ -29,7 +29,7 @@ send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 #     scout(v_x,v_y,duration,start_time,vehicle)
 time.sleep(5)
 
-send_body_angle(90,5)
+send_body_angle(90,5,vehicle)
 
 start_time = time.time()
 duration = 2
@@ -49,7 +49,7 @@ send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 #     scout(v_x,v_y,duration,start_time,vehicle)
 time.sleep(5)
 
-send_body_angle(180,5)
+send_body_angle(180,5,vehicle)
 
 start_time = time.time()
 duration = 5    #运动的持续时间
@@ -60,7 +60,7 @@ send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 #     scout(v_x,v_y,duration,start_time,vehicle)
 time.sleep(5)
 
-send_body_angle(-90,5)
+send_body_angle(-90,5,vehicle)
 
 start_time = time.time()
 duration = 2
@@ -69,7 +69,7 @@ v_y = 0
 send_body_ned_velocity(v_x,v_y,0,duration,vehicle)
 time.sleep(5)
 
-send_body_angle(-90,5)
+send_body_angle(-90,5,vehicle)
 
 start_time = time.time()
 duration = 5
