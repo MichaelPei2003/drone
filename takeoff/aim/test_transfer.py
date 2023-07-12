@@ -4,8 +4,6 @@ import socket
 import time
 import pigpio
 from dronekit import connect
-import sys
-sys.path.append("takeoff")
 from arm_and_takeoff import arm_and_takeoff
 from send_body_ned_velocity import send_body_ned_velocity
 from aim import aim
@@ -54,9 +52,9 @@ bucket_y = 240
 
 #takeoff and leave takeoff area
 arm_and_takeoff(3, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
-for i in range(10):
-    send_body_ned_velocity(0.8, 0, 0, vehicle)
-    time.sleep(1)
+#for i in range(10):
+#    send_body_ned_velocity(0.8, 0, 0, vehicle)
+#    time.sleep(1)
 
 while True:
     # 读取一帧图像
