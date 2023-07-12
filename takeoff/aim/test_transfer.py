@@ -87,6 +87,8 @@ while True:
             if flag_aimed_ready == 0:
                 flag_aimed = 0
             x, y, flag_servo = coord_str.split(",")
+            #zero →+x
+            # ↓+y
             bucket_x = int(x)
             bucket_y = int(y)
             print("(",x,",",y,")",flag_servo)

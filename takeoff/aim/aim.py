@@ -4,16 +4,16 @@ def aim(bucket_x, bucket_y, ix, iy, last_error_x, last_error_y, vehicle):
     flag = 0#flag aimed
     # PID
     dt = 0.1
-    kp = 0.02  # 比例参数
+    kp = 0.008  # 比例参数
     ki = 0.001  # 积分参数
-    kd = 0.02  # 微分参数
+    kd = 0.004  # 微分参数
     
     self_x = 320
     self_y = 240
     
-    error_x = bucket_x - self_x
-    error_y = bucket_y - self_y
-    
+    error_y = bucket_x - self_x
+    error_x = self_y - bucket_y
+
     px = error_x
     py = error_y
     ix += error_x * dt

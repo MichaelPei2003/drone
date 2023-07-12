@@ -30,7 +30,7 @@ def Pidshot(x,y,vehicle):
         # 更新上一次误差
         error_priorX = errorX
         # 应用控制量到无人机
-        send_body_ned_velocity(controlX*0.1,0,0,vehicle)
+        send_body_ned_velocity(0,controlX*0.1,0,vehicle)
         # 测量当前X坐标
         current_X=x/640*140 
 
@@ -46,7 +46,7 @@ def Pidshot(x,y,vehicle):
         # 更新上一次误差
         error_priorY = errorY
         # 应用控制量到无人机
-        send_body_ned_velocity(0,controlY*0.1,0,vehicle)
+        send_body_ned_velocity(controlY*0.1,0,0,vehicle)
         # 测量当前Y坐标
         current_Y=y/480*105    
 
