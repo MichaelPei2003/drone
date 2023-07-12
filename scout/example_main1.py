@@ -21,23 +21,35 @@ arm_and_takeoff(5,vehicle)
 #路线2
 #←↑→
 
+#向左走7m
 send_body_ned_velocity(0,-1,0,7,vehicle)
 time.sleep(5)
+print("go left 7m")
 
+#向前走2m
 send_body_ned_velocity(1,0,0,2,vehicle)
 time.sleep(5)
+print("go forward 2m")
 
-send_body_ned_velocity(1,0,0,7,vehicle)
+#向右走7m
+send_body_ned_velocity(0,1,0,7,vehicle)
 time.sleep(5)
+print("go right 7m")
 
+#向左走7m
 send_body_ned_velocity(0,-1,0,7,vehicle)
 time.sleep(5)
+print("go left 7m")
 
+#向后走2m
 send_body_ned_velocity(-1,0,0,2,vehicle)
 time.sleep(5)
+print("go backward 2m")
 
-send_body_ned_velocity(1,0,0,7,vehicle)
+#向右走7m
+send_body_ned_velocity(0,1,0,7,vehicle)
 time.sleep(5)
+print("go right 7m")
 
 
 # #向左旋转90度
