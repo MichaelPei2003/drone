@@ -108,7 +108,7 @@ def shot(vehicle):
 
 
         # 计算误差
-        error_x = -(target_location_x - current_location_x)
+        error_x = target_location_x - current_location_x
         error_y = -(target_location_y - current_location_y)
 
         # 计算PID控制信号
@@ -121,10 +121,11 @@ def shot(vehicle):
         last_error_x = error_x
         last_error_y = error_y
 
-        print("vx:",vx,"vy:",vy)
         vx = kp * proportional_x + ki * integral_x + kd * derivative_x
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
-
+        velocity_vx=vy
+        velocity_vy=vx
+        print("x:",velocity_vx,"y:",velocity_vy)
         # 发送控制信号
         send_body_ned_velocity(vy, vx, 0,vehicle)
 
