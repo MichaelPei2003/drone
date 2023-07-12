@@ -10,9 +10,9 @@ import pigpio
 def shot(vehicle):
     # 初始化PID控制器
     dt = 0.1
-    kp = 0.002  # 比例参数
-    ki = 0.002  # 积分参数
-    kd = 0.005  # 微分参数
+    kp = 0.06  # 比例参数
+    ki = 0.01  # 积分参数
+    kd = 0.01  # 微分参数
     error_x = 0
     error_y = 0
     proportional_x=0
@@ -125,7 +125,7 @@ def shot(vehicle):
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
 
         # 发送控制信号
-        send_body_ned_velocity(vx, vy, 0,vehicle)
+        send_body_ned_velocity(vy, vx, 0,vehicle)
 
         # 检查是否到达目标点
         if abs(error_x) < 2 and abs(error_y) < 2:

@@ -8,6 +8,10 @@ def send_body_angle(angle,duration=0,vehicle = None):
     target_yaw = vehicle.heading + angle  # 目标偏航角为当前偏航角加输入的角度
 
     # 发送控制指令
+<<<<<<< HEAD
+=======
+    # 发送控制指令
+>>>>>>> 75528b3 (hz)
     msg = vehicle.message_factory.command_long_encode(
     0, 0,  # target_system, target_component
     mavutil.mavlink.MAV_CMD_CONDITION_YAW,  # command
