@@ -1,4 +1,4 @@
-from shot import shot
+from shotexam import shot
 from dronekit import connect
 from arm_and_takeoff import arm_and_takeoff
 #connect to drone 

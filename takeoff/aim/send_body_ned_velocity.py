@@ -24,23 +24,3 @@ def send_body_ned_velocity(velocity_x, velocity_y, velocity_z, vehicle = None):
 
         0, 0)
     
-    
-    #doesn't move
-    # print("banking right")
-    # vehicle._master.mav.command_long_send(
-    #     0, 0,
-    #     mavutil.mavlink.MAV_CMD_NAV_ATTITUDE_TIME,
-    #     0,  # confirmation
-    #     10,  # roll angle (degrees)
-    #     0,  # pitch angle (degrees)
-    #     0,  # yaw angle (degrees)
-    #     0.6, # thrust (0-1)
-    #     0, 0, 0)
-
-    # vehicle._master.mav.set_attitude_target_send(
-    #     0,
-    #     0, 0,
-    #     0b11000111, # type_mask
-    #     (0.9848, 0, 0.1736, 0),
-    #     4, 4, 4, 0 
-    # )

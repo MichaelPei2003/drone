@@ -24,7 +24,7 @@ arm_and_takeoff(5,vehicle)
 send_body_ned_velocity(0,-1,0,7,vehicle)
 time.sleep(5)
 
-send_body_ned_velocity(1,0,0,2,vehicle)
+send_body_ned_velocity(0,1,0,2,vehicle)
 time.sleep(5)
 
 send_body_ned_velocity(1,0,0,7,vehicle)
@@ -36,7 +36,7 @@ time.sleep(5)
 send_body_ned_velocity(-1,0,0,2,vehicle)
 time.sleep(5)
 
-send_body_ned_velocity(1,0,0,7,vehicle)
+send_body_ned_velocity(0,1,0,7,vehicle)
 time.sleep(5)
 
 
