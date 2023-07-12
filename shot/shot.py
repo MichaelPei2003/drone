@@ -1,5 +1,5 @@
                             #from multiprocessing import connection
-import time
+import math
 #from dronekit import LocationGlobal, VehicleMode
 from send_body_ned_velocity import send_body_ned_velocity
 import cv2
@@ -8,11 +8,12 @@ import socket
 import time
 import pigpio
 def shot(vehicle):
+    k=0.01#控制vx和vy
     # 初始化PID控制器
     dt = 0.1
-    kp = 0.002  # 比例参数
-    ki = 0.0001  # 积分参数
-    kd = 0.0001  # 微分参数
+    kp = 0.1  # 比例参数
+    ki = 0.01  # 积分参数
+    kd = 0.01  # 微分参数
     error_x = 0
     error_y = 0
     proportional_x=0
@@ -123,11 +124,11 @@ def shot(vehicle):
 
         vx = kp * proportional_x + ki * integral_x + kd * derivative_x
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
-        velocity_vx=vy
-        velocity_vy=vx
+        velocity_vx=k*vy
+        velocity_vy=k*vx
         print("x:",velocity_vx,"y:",velocity_vy)
         # 发送控制信号
-        send_body_ned_velocity(vy, vx, 0,vehicle)
+        send_body_ned_velocity(velocity_vx, velocity_vy, 0,vehicle)
 
         # 检查是否到达目标点
         if abs(error_x) < 2 and abs(error_y) < 2:

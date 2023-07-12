@@ -3,9 +3,9 @@ from dronekit import VehicleMode
 
 def Pidshot(x,y,vehicle):
     # PID参数
-    Kp = 1.0  # 比例系数
-    Ki = 0.1  # 积分系数
-    Kd = 0.01  # 微分系数
+    Kp = 0.4  # 比例系数
+    Ki = 0.08  # 积分系数
+    Kd = 0.02  # 微分系数
     target_X = 70  # 目标X轴坐标
     current_X = 0  # 当前X轴坐标
     target_Y = 53  # 目标Y轴坐标
@@ -29,11 +29,10 @@ def Pidshot(x,y,vehicle):
         controlX = Kp * errorX + Ki * integralX + Kd * derivativeX
         # 更新上一次误差
         error_priorX = errorX
-        # 应用控制量到无人机
-        print(controlX*-0.5)
-        send_body_ned_velocity(0,controlX*-0.5,0,vehicle)
-        # 测量当前X坐标
-        current_X=x/640*140 
+        # 应用控制量到无人机 
+        vy=controlX*-0.01
+        print(vy)
+        send_body_ned_velocity(0,vy,0,vehicle) 
 
     if (current_Y<=50 or current_Y>=55):
         # 计算误差
@@ -47,12 +46,11 @@ def Pidshot(x,y,vehicle):
         # 更新上一次误差
         error_priorY = errorY
         # 应用控制量到无人机
-        print(controlY*0.1)
-        send_body_ned_velocity(controlY*0.1,0,0,vehicle)
-        # 测量当前Y坐标
-        current_Y=y/480*105    
+        vx=controlY*0.01
+        print(vx)
+        send_body_ned_velocity(vx,0,0,vehicle)
 
     if (current_X>=68 and current_X<=72 and current_Y>=50 and current_Y<=55):
         #if reach the range of xy,change mode to "LAND"
         print("reach the range")
-        vehicle.VehicleMode("LAND")
+        vehicle.VehicleMode("RTL")
