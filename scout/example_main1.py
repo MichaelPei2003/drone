@@ -26,12 +26,8 @@ send_body_ned_velocity(0,-1,0,7,vehicle)
 time.sleep(5)
 print("go left 7m")
 
-<<<<<<< HEAD
-send_body_ned_velocity(0,1,0,2,vehicle)
-=======
 #向前走2m
 send_body_ned_velocity(1,0,0,2,vehicle)
->>>>>>> fcf51f551e0c8f2c7fc9bdd69184fe79f6d5496b
 time.sleep(5)
 print("go forward 2m")
 
@@ -39,6 +35,8 @@ print("go forward 2m")
 send_body_ned_velocity(0,1,0,7,vehicle)
 time.sleep(5)
 print("go right 7m")
+
+#重新换个方向走一遍
 
 #向左走7m
 send_body_ned_velocity(0,-1,0,7,vehicle)
@@ -50,10 +48,7 @@ send_body_ned_velocity(-1,0,0,2,vehicle)
 time.sleep(5)
 print("go backward 2m")
 
-<<<<<<< HEAD
-=======
 #向右走7m
->>>>>>> fcf51f551e0c8f2c7fc9bdd69184fe79f6d5496b
 send_body_ned_velocity(0,1,0,7,vehicle)
 time.sleep(5)
 print("go right 7m")
