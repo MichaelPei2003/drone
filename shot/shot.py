@@ -10,7 +10,7 @@ import pigpio
 def shot(vehicle):
     # 初始化PID控制器
     dt = 0.1
-    kp = 0.06  # 比例参数
+    kp = 0.2  # 比例参数
     ki = 0.01  # 积分参数
     kd = 0.01  # 微分参数
     error_x = 0
@@ -114,10 +114,10 @@ def shot(vehicle):
         # 计算PID控制信号
         proportional_x = error_x
         proportional_y = error_y
-        integral_x += error_x*dt
-        integral_y += error_y*dt
-        derivative_x = (error_x - last_error_x)/dt
-        derivative_y = (error_y - last_error_y)/dt
+        integral_x += error_x
+        integral_y += error_y
+        derivative_x = (error_x - last_error_x)
+        derivative_y = (error_y - last_error_y)
         last_error_x = error_x
         last_error_y = error_y
 
