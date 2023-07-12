@@ -9,9 +9,9 @@ import time
 import pigpio
 def shot(vehicle):
     # 初始化PID控制器
-    kp = 0.5  # 比例参数
-    ki = 0.001  # 积分参数
-    kd = 0.001  # 微分参数
+    kp = 0.05  # 比例参数
+    ki = 0.0001  # 积分参数
+    kd = 0.0001  # 微分参数
     error_x = 0
     error_y = 0
     proportional_x=0
@@ -23,23 +23,6 @@ def shot(vehicle):
     last_error_x = 0
     last_error_y = 0
 
-    pi = pigpio.pi()
-
-    servo_pin = 14
-    servo_min = 1000  # 舵机最小脉冲宽度
-    servo_max = 2000  # 舵机最大脉冲宽度
-    servo_mid = (servo_max - servo_min) / 2 + servo_min
-    pi.set_servo_pulsewidth(servo_pin, 0)  # 停止初始位置抖动
-    pi.set_servo_pulsewidth(servo_pin, servo_min)  # 最小位置
-
-    cap = cv2.VideoCapture(0)
-    # 设置编码参数
-    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
-
-    # 创建套接字
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('0.0.0.0', 8000))
-    server_socket.listen(0)
 
     target_location_x = 0 #晚点再设置吧
     target_location_y = 0
