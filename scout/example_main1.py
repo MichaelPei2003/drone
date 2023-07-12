@@ -1,12 +1,17 @@
+from scout.transfer import transfer
 import time 
 from dronekit import connect,VehicleMode
+
 
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from takeoff.arm_and_takeoff import arm_and_takeoff
 
+from threading import Thread
+
 from send_body_ned_velocity import send_body_ned_velocity
 from send_body_angle import send_body_angle
+
 
  
 # 改为当前连接的pixhawk飞控的端口 
@@ -17,6 +22,17 @@ vehicle = connect(connection_string, wait_ready=False)
 arm_and_takeoff(5,vehicle)
 
 # cyl = 0    #是否检测到圆筒，初始值为0指未检测到
+
+
+daemon_thread = Thread(target=transfer)
+daemon_thread.daemon = True  # 设置线程为守护线程
+
+# 启动守护线程
+daemon_thread.start()
+
+# transfer_thread = Thread(target = transfer)
+# transfer_thread.daemon = True
+# transfer_thread.start()
 
 #路线2
 #←↑→

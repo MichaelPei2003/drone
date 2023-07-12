@@ -8,6 +8,7 @@ from send_body_angle import send_body_angle
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from takeoff.arm_and_takeoff import arm_and_takeoff
 
+
 # 改为当前连接的pixhawk飞控的端口 
 connection_string ='192.168.159.182:14550' 
 print('Connectingto vehicle on: %s' % connection_string) 
