@@ -15,7 +15,7 @@ from send_body_angle import send_body_angle
 
  
 # 改为当前连接的pixhawk飞控的端口 
-connection_string ='192.168.159.182:14550' 
+connection_string ='172.20.10.6:14550' 
 print('Connectingto vehicle on: %s' % connection_string) 
 vehicle = connect(connection_string, wait_ready=False) 
 
