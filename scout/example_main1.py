@@ -1,4 +1,4 @@
-from scout.transfer import transfer
+from transfer_scout import transfer
 import time 
 from dronekit import connect,VehicleMode
 
