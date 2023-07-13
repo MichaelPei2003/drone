@@ -23,6 +23,7 @@ arm_and_takeoff(5,vehicle)
 
 # cyl = 0    #是否检测到圆筒，初始值为0指未检测到
 
+send_body_ned_velocity(5,1,0,4,vehicle)
 
 daemon_thread = Thread(target=transfer)
 daemon_thread.daemon = True  # 设置线程为守护线程
@@ -30,9 +31,6 @@ daemon_thread.daemon = True  # 设置线程为守护线程
 # 启动守护线程
 daemon_thread.start()
 
-# transfer_thread = Thread(target = transfer)
-# transfer_thread.daemon = True
-# transfer_thread.start()
 
 #路线2
 #←↑→
