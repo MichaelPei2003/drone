@@ -11,7 +11,7 @@ from threading import Thread
 
 from send_body_ned_velocity import send_body_ned_velocity
 from send_body_angle import send_body_angle
-
+from scout import scout
 
  
 # 改为当前连接的pixhawk飞控的端口 
@@ -31,42 +31,56 @@ daemon_thread.daemon = True  # 设置线程为守护线程
 # 启动守护线程
 daemon_thread.start()
 
+data = transfer()
 
 #路线2
 #←↑→
 
 #向左走7m
-send_body_ned_velocity(0,-1,0,7,vehicle)
+
+duration=7
+x_duration=duration*2
+for x in range(x_duration):
+    v_x=0
+    v_y=-1
+    send_body_ned_velocity(v_x,v_y,0,0.5,vehicle)
+    if data != 0:
+        entry_time=time.time()
+    while data != 0 :
+        break_time=scout(v_x,v_y,vehicle)
+        duration=duration-(break_time-entry_time)*0.5
+    x_duration=duration*2
 time.sleep(5)
 print("go left 7m")
 
-#向前走2m
-send_body_ned_velocity(1,0,0,2,vehicle)
-time.sleep(5)
-print("go forward 2m")
+# #向前走2m
+# send_body_ned_velocity(1,0,0,2,vehicle)
+# time.sleep(5)
+# print("go forward 2m")
 
-#向右走7m
-send_body_ned_velocity(0,1,0,7,vehicle)
-time.sleep(5)
-print("go right 7m")
+# #向右走7m
+# send_body_ned_velocity(0,1,0,7,vehicle)
+# time.sleep(5)
+# print("go right 7m")
 
-#重新换个方向走一遍
+# #重新换个方向走一遍
 
-#向左走7m
-send_body_ned_velocity(0,-1,0,7,vehicle)
-time.sleep(5)
-print("go left 7m")
+# #向左走7m
+# send_body_ned_velocity(0,-1,0,7,vehicle)
+# time.sleep(5)
+# print("go left 7m")
 
-#向后走2m
-send_body_ned_velocity(-1,0,0,2,vehicle)
-time.sleep(5)
-print("go backward 2m")
+# #向后走2m
+# send_body_ned_velocity(-1,0,0,2,vehicle)
+# time.sleep(5)
+# print("go backward 2m")
 
-#向右走7m
-send_body_ned_velocity(0,1,0,7,vehicle)
-time.sleep(5)
-print("go right 7m")
+# #向右走7m
+# send_body_ned_velocity(0,1,0,7,vehicle)
+# time.sleep(5)
+# print("go right 7m")
 
+#*******
 
 # #向左旋转90度
 # send_body_angle(-90,5,vehicle)

@@ -45,6 +45,7 @@ def transfer():
              #接收数据
             coord = client_socket.recv(4096)
             coord_str = coord.decode("utf-8")
+            
             if coord_str != '0':
                 x, y, flag_servo = coord_str.split(",")
                 print("(",x,",",y,")",flag_servo)
@@ -78,6 +79,7 @@ def transfer():
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+        return coord_str
 
     # 关闭连接
     client_socket.close()
