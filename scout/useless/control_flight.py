@@ -3,8 +3,8 @@ from send_body_ned_velocity import send_body_ned_velocity
 import math
 import time
 
-from scout.useless.index import set_value
-from scout.useless.index import get_value
+from scout.index import set_value
+from scout.index import get_value
 
 connection_string = 'udp:127.0.0.1:14550'  
 vehicle = connect(connection_string, wait_ready=True)

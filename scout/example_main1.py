@@ -10,8 +10,11 @@ from takeoff.arm_and_takeoff import arm_and_takeoff
 from threading import Thread
 
 from send_body_ned_velocity import send_body_ned_velocity
-from send_body_angle import send_body_angle
+from scout.useless.send_body_angle import send_body_angle
 from scout import scout
+from index import set_value
+from index import get_value
+from index import _init
 
  
 # 改为当前连接的pixhawk飞控的端口 
@@ -31,7 +34,10 @@ daemon_thread.daemon = True  # 设置线程为守护线程
 # 启动守护线程
 daemon_thread.start()
 
-data = transfer()
+_init()
+
+data=0
+
 
 #路线2
 #←↑→
@@ -44,12 +50,14 @@ for x in range(x_duration):
     v_x=0
     v_y=-1
     send_body_ned_velocity(v_x,v_y,0,0.5,vehicle)
+    data = get_value(0)
     if data != 0:
         entry_time=time.time()
     while data != 0 :
         break_time=scout(v_x,v_y,vehicle)
         duration=duration-(break_time-entry_time)*0.5
     x_duration=duration*2
+    x_duration=int(x_duration)
 time.sleep(5)
 print("go left 7m")
 
