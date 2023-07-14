@@ -48,51 +48,52 @@ data=0
 
 #向左走7m
 
-duration=7
-x_duration=duration*2
-for x in range(x_duration):
-    v_x=0
-    v_y=-1
-    send_body_ned_velocity(v_x,v_y,0,0.5,vehicle)
-    data = get_value(0)
-    if data != 0:
-        entry_time=time.time()
-    while data != 0 :
-        scout(v_x,v_y,vehicle)
-        break_time=get_value(1)
-        duration=duration-(break_time-entry_time)*0.5
-        data = get_value(0)
-    x_duration=duration*2
-    x_duration=int(x_duration)
+send_body_ned_velocity(0,-1,0,7,vehicle)
+# duration=7
+# x_duration=duration*2
+# for x in range(x_duration):
+#     v_x=0
+#     v_y=-1
+#     send_body_ned_velocity(v_x,v_y,0,0.5,vehicle)
+#     data = get_value(0)
+#     if data != 0:
+#         entry_time=time.time()
+#     while data != 0 :
+#         scout(v_x,v_y,vehicle)
+#         break_time=get_value(1)
+#         duration=duration-(break_time-entry_time)*0.5
+#         data = get_value(0)
+#     x_duration=duration*2
+#     x_duration=int(x_duration)
 time.sleep(5)
 print("go left 7m")
 
-# #向前走2m
-# send_body_ned_velocity(1,0,0,2,vehicle)
-# time.sleep(5)
-# print("go forward 2m")
+#向前走2m
+send_body_ned_velocity(1,0,0,2,vehicle)
+time.sleep(5)
+print("go forward 2m")
 
-# #向右走7m
-# send_body_ned_velocity(0,1,0,7,vehicle)
-# time.sleep(5)
-# print("go right 7m")
+#向右走7m
+send_body_ned_velocity(0,1,0,7,vehicle)
+time.sleep(5)
+print("go right 7m")
 
-# #重新换个方向走一遍
+#重新换个方向走一遍
 
-# #向左走7m
-# send_body_ned_velocity(0,-1,0,7,vehicle)
-# time.sleep(5)
-# print("go left 7m")
+#向左走7m
+send_body_ned_velocity(0,-1,0,7,vehicle)
+time.sleep(5)
+print("go left 7m")
 
-# #向后走2m
-# send_body_ned_velocity(-1,0,0,2,vehicle)
-# time.sleep(5)
-# print("go backward 2m")
+#向后走2m
+send_body_ned_velocity(-1,0,0,2,vehicle)
+time.sleep(5)
+print("go backward 2m")
 
-# #向右走7m
-# send_body_ned_velocity(0,1,0,7,vehicle)
-# time.sleep(5)
-# print("go right 7m")
+#向右走7m
+send_body_ned_velocity(0,1,0,7,vehicle)
+time.sleep(5)
+print("go right 7m")
 
 #*******
 

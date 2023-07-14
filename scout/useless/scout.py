@@ -4,8 +4,8 @@ from dronekit import connect, VehicleMode
 from pymavlink import mavutil
 from send_body_ned_velocity import send_body_ned_velocity
 from scout.useless.control_flight import control_flight
-from index import set_value
-from index import get_value
+from scout.index import set_value
+from scout.index import get_value
 
 
 def scout(v_x,v_y,duration,start_time,vehicle = None):

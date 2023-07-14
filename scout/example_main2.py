@@ -3,7 +3,7 @@ from dronekit import connect,VehicleMode
 
 import sys, os
 from send_body_ned_velocity import send_body_ned_velocity
-from send_body_angle import send_body_angle
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from takeoff.arm_and_takeoff import arm_and_takeoff
