@@ -26,7 +26,11 @@ arm_and_takeoff(5,vehicle)
 
 # cyl = 0    #是否检测到圆筒，初始值为0指未检测到
 
-send_body_ned_velocity(5,1,0,4,vehicle)
+# #前往侦查区
+# print("start going to scout area ...")
+# send_body_ned_velocity(5,1,0,4,vehicle)
+# time.sleep(5)
+# print("reach scout area")
 
 daemon_thread = Thread(target=transfer)
 daemon_thread.daemon = True  # 设置线程为守护线程
@@ -54,8 +58,10 @@ for x in range(x_duration):
     if data != 0:
         entry_time=time.time()
     while data != 0 :
-        break_time=scout(v_x,v_y,vehicle)
+        scout(v_x,v_y,vehicle)
+        break_time=get_value(1)
         duration=duration-(break_time-entry_time)*0.5
+        data = get_value(0)
     x_duration=duration*2
     x_duration=int(x_duration)
 time.sleep(5)

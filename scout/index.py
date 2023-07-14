@@ -15,6 +15,10 @@ def get_value(key,defValue=None):
         return defValue
 
 
+#0,data    #图传接收到的数据
+#1,break_time    #视野中没有圆筒的时间点
+
+
 #0,speed_x    #靠近圆筒时的x速度
 #1,speed_y    #靠近圆筒时的y速度
 #2,duration    #每一段巡航路线的持续时间
