@@ -52,10 +52,17 @@ bucket_y = 240
 
 #takeoff and leave takeoff area
 arm_and_takeoff(3, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
-#for i in range(10):
-#    send_body_ned_velocity(0.8, 0, 0, vehicle)
-#    time.sleep(1)
+for i in range(10):
+   send_body_ned_velocity(0.8, 0, 0, vehicle)
+   time.sleep(1)
 
+time1=time.time()
+print("time1=",time1)
+
+while True:
+    time2=time.time()
+    if time2-time1>=40:
+        break
 while True:
     # 读取一帧图像
     ret, frame = cap.read()

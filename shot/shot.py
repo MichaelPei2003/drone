@@ -1,4 +1,4 @@
-                            #from multiprocessing import connection
+#from multiprocessing import connection
 import math
 #from dronekit import LocationGlobal, VehicleMode
 from send_body_ned_velocity import send_body_ned_velocity
@@ -8,12 +8,14 @@ import socket
 import time
 import pigpio
 def shot(vehicle):
-    k=0.01#控制vx和vy
+    k=0.001#控制vx和vy
     # 初始化PID控制器
-    dt = 0.1
-    kp = 0.1  # 比例参数
-    ki = 0.01  # 积分参数
-    kd = 0.01  # 微分参数
+    dt=0.05
+    kp = 0.4  # 比例参数
+    ki = 0.6  # 积分参数
+    kd = 0.02  # 微分参数
+    max_vx=0.4 #前后方向最大速度
+    max_vy=0.4 #左右方向最大速度
     error_x = 0
     error_y = 0
     proportional_x=0
@@ -90,7 +92,20 @@ def shot(vehicle):
                         pass
 
             else:
-                print(0)
+                if vehicle.location.global_relative_frame.alt<6:
+                    print(0)
+                    print("无目标，准备上升高度")
+                    send_body_ned_velocity(0.2,0,-0.2,vehicle)
+                    print("Altitude_now:%s"%vehicle.location.global_relative_frame.alt)
+                else:
+                    print("无目标，准备放弃，开始投弹")
+                    try:
+                        pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
+                        time.sleep(1)
+                        run_servo = 1
+                        break
+                    except:
+                        pass
                 continue
         except BlockingIOError:
         # 如果没有新的数据到达，则等待一段时间再次尝试接收
@@ -115,22 +130,32 @@ def shot(vehicle):
         # 计算PID控制信号
         proportional_x = error_x
         proportional_y = error_y
-        integral_x += error_x*dt
-        integral_y += error_y*dt
-        derivative_x = (error_x - last_error_x)/dt
-        derivative_y = (error_y - last_error_y)/dt
+        integral_x += error_x * dt
+        integral_y += error_y * dt
+        derivative_x = (error_x - last_error_x) / dt
+        derivative_y = (error_y - last_error_y) / dt
         last_error_x = error_x
         last_error_y = error_y
 
         vx = kp * proportional_x + ki * integral_x + kd * derivative_x
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
-        velocity_vx=k*vy
-        velocity_vy=k*vx
-        print("x:",velocity_vx,"y:",velocity_vy)
+        velocity_vx=k*vy*0.4*0.5
+        velocity_vy=0.08*k*vx*0.6
+        if velocity_vx>max_vx:
+            velocity_vx=max_vx
+            integral_y=0
+        if velocity_vy>max_vy:
+            velocity_vy=max_vy
+            integral_x=0
+        print("x:",velocity_vx,"y:",velocity_vy,"alt:",vehicle.location.global_relative_frame.alt)
         # 发送控制信号
-        send_body_ned_velocity(velocity_vx, velocity_vy, 0,vehicle)
+        if vehicle.location.global_relative_frame.alt>2:
+            send_body_ned_velocity(velocity_vx, velocity_vy, 0.1,vehicle)
+        else:
+            send_body_ned_velocity(velocity_vx, velocity_vy, 0,vehicle)
+        
 
         # 检查是否到达目标点
-        if abs(error_x) < 2 and abs(error_y) < 2:
+        if abs(error_x) < 1 and abs(error_y) < 1:
             print("Reached target location")
             break
