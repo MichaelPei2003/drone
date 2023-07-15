@@ -1,14 +1,10 @@
 ## PXY ##
+    - pos_calc
+        - get_target_location.py
     - takeoff
-        - .old
-            - to_release_area.py
         - __init__.py
-        - arm_and_ned_velocity.py
-        - mav_cmd_test.py
+        - arm_and_takeoff.py
         - send_body_ned_velocity.py
-        - sim_move.py
-        - sim_takeoff.py
-        - takeoff.py 
 ## CYT ##
     - scout
         - control_flight.py
@@ -126,3 +122,9 @@
 ### 7.14更新 ###
 - **cyt**:
     - 在原来的巡航路线基础上加了结合图传的部分，如果图传中识别到圆筒则减速侦察，在看不见圆筒后再回到原来的巡航速度，目前还没在仿真上测试成功
+### 7.15更新 ###
+- **pxy**:
+    - 清理了takeoff文件夹中的前期模拟器测试文件
+    - 新增pos_calc文件夹存储目标位置计算文件，具体用法见模块内注释
+    - 上述位置计算模块功能待测试
+    - aim文件夹内test_transfer.py为目前测试使用的主程序

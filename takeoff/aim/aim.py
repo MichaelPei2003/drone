@@ -15,7 +15,7 @@ def aim(bucket_x, bucket_y, ix, iy, last_error_x, last_error_y, vehicle):
     error_x = self_y - bucket_y
 
     px = error_x
-    py = error_yZ
+    py = error_y
     ix += error_x * dt
     iy += error_y * dt
     dx = (error_x - last_error_x)/dt
