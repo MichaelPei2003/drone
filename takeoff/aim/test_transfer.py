@@ -51,10 +51,7 @@ bucket_x = 320
 bucket_y = 240
 
 #takeoff and leave takeoff area
-arm_and_takeoff(3, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
-for i in range(10):
-   send_body_ned_velocity(0.8, 0, 0, vehicle)
-   time.sleep(1)
+
 
 time1=time.time()
 print("time1=",time1)
@@ -108,6 +105,12 @@ while True:
             #如果没用检测到任何东西则直飞
             #如果一直未检测到目标飞行器不会自动停止！！！
             send_body_ned_velocity(0.8, 0, 0, vehicle)#(vx, vy, vz, vehicle)，单位m/s
+        if flag_takeoff == 0:
+            arm_and_takeoff(3, vehicle) #arm_and_takeoff(aTargetAltitude, vehicle)
+            send_body_ned_velocity(0.8, 0, 0, vehicle)
+            time.sleep(1)
+            if time >= 10:
+                flag_takeoff = 1
         if flag_aimed == 0:    
             ix, iy, last_error_x, last_error_y, flag_aimed_ready = aim(bucket_x, bucket_y, ix, iy, last_error_x, last_error_y, vehicle)
     

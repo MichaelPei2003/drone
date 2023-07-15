@@ -42,4 +42,4 @@ def arm_and_takeoff(aTargetAltitude, vehicle):
             print("Reached targetaltitude") 
             break 
         # 等待1s 
-        time.sleep(1) 
+        time.sleep(2) 
