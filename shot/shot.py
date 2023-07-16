@@ -1,7 +1,9 @@
 #from multiprocessing import connection
 import math
 #from dronekit import LocationGlobal, VehicleMode
+from arm_and_takeoff import arm_and_takeoff
 from send_body_ned_velocity import send_body_ned_velocity
+from find import find
 import cv2
 import numpy as np
 import socket
@@ -11,9 +13,9 @@ def shot(vehicle):
     k=0.001#控制vx和vy
     # 初始化PID控制器
     dt=0.05
-    kp = 0.4  # 比例参数
-    ki = 0.6  # 积分参数
-    kd = 0.02  # 微分参数
+    kp = 0.58  # 比例参数
+    ki = 0.5  # 积分参数
+    kd = 0.015  # 微分参数
     max_vx=0.4 #前后方向最大速度
     max_vy=0.4 #左右方向最大速度
     error_x = 0
@@ -48,12 +50,18 @@ def shot(vehicle):
     print("等待地面站连接...")
     client_socket, client_address = server_socket.accept()
     print("地面站连接成功")
-
+    arm_and_takeoff(2,vehicle)
+    
     #client_socket.setblocking(False)
     interval = 0.1  # 设置轮询间隔
 
     run_servo = 0
 
+    #side,l用于find
+    side=0
+    l=1
+    f=1
+    t = time.time()
     while True:
         # 读取一帧图像
         ret, frame = cap.read()
@@ -81,6 +89,10 @@ def shot(vehicle):
             if coord_str != '0':
                 x, y, flag_servo = coord_str.split(",")
                 print("(",x,",",y,")",flag_servo)
+                #识别到后重置find中的side和l
+                side=0
+                l=1
+                f=1
                 target_location_x = int(x)#晚点再设置吧
                 target_location_y = int(y)
                 if int(flag_servo) == 1 and run_servo == 0 :
@@ -92,13 +104,16 @@ def shot(vehicle):
                         pass
 
             else:
-                if vehicle.location.global_relative_frame.alt<6:
-                    print(0)
-                    print("无目标，准备上升高度")
-                    send_body_ned_velocity(0.2,0,-0.2,vehicle)
-                    print("Altitude_now:%s"%vehicle.location.global_relative_frame.alt)
-                else:
-                    print("无目标，准备放弃，开始投弹")
+                t1=time.time()
+                if int((t1-t)%2)==0:
+                    side=side%2+1
+                    find(vehicle,l,side,f)
+                    print("走了一步")
+                if side==2:
+                    l=l+1
+                    f=-f
+                if l>5:
+                    print("无法找到目标，放弃，直接投弹")
                     try:
                         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
                         time.sleep(1)
@@ -106,6 +121,20 @@ def shot(vehicle):
                         break
                     except:
                         pass
+                # if vehicle.location.global_relative_frame.alt<6:
+                #     print(0)
+                #     print("无目标，准备上升高度")
+                #     send_body_ned_velocity(0.2,0,-0.2,vehicle)
+                #     print("Altitude_now:%s"%vehicle.location.global_relative_frame.alt)
+                # else:
+                #     print("无目标，准备放弃，开始投弹")
+                #     try:
+                #         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
+                #         time.sleep(1)
+                #         run_servo = 1
+                #         break
+                #     except:
+                #         pass
                 continue
         except BlockingIOError:
         # 如果没有新的数据到达，则等待一段时间再次尝试接收
