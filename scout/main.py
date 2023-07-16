@@ -21,7 +21,7 @@ daemon_thread.daemon = True  # 设置线程为守护线程
 # 启动守护线程
 daemon_thread.start()
 
-arm_and_takeoff(5,vehicle)
+arm_and_takeoff(3,vehicle)
 
 send_body_ned_velocity(0.4,0,0,10,vehicle)
 time.sleep(5)
