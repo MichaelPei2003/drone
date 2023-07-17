@@ -188,10 +188,11 @@ def shot(vehicle):
         
 
         # 检查是否到达目标点
-        if abs(error_x) < 1 and abs(error_y) < 1:
+        if abs(error_x) < 10 and abs(error_y) < 10:
             print("Reached target location")
             pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
             time.sleep(1)
             run_servo = 1
+            send_body_ned_velocity(0,0,0.3,vehicle)
             print("投弹完成，请继续执行")
             break
