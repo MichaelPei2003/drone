@@ -3,7 +3,7 @@ from dronekit import VehicleMode
 
 def Pidshot(x,y,vehicle):
     # PID参数
-    Kp = 0.4  # 比例系数
+    Kp = 0.5  # 比例系数
     Ki = 0.1  # 积分系数
     Kd = 0.02  # 微分系数
     target_X = 70  # 目标X轴坐标
