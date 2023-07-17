@@ -102,14 +102,14 @@ def shot(vehicle):
                 if int(flag_servo) == 1 and run_servo == 0 :
                     try:
                         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
-                        time.sleep(1)
+                        # time.sleep(1)
                         run_servo = 1
                     except:
                         pass
 
             else:
                 print("count_t=",count_t)
-                if count_t%50==0:
+                if count_t%40==0:
                     side=side%2+1
                     print("side=",side)
                     print("走了一步")
@@ -191,7 +191,7 @@ def shot(vehicle):
         if abs(error_x) < 10 and abs(error_y) < 10:
             print("Reached target location")
             pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
-            time.sleep(1)
+            # time.sleep(1)
             run_servo = 1
             send_body_ned_velocity(0,0,0.3,vehicle)
             print("投弹完成，请继续执行")
