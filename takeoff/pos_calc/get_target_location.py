@@ -19,9 +19,11 @@ def get_target_location(dheading, x, vehicle):
     #change in lat and lon    
     dlon = x * math.sin(heading_radians) * 0.0000093
     dlat = x * math.cos(heading_radians) * 0.000009
+    
+    print("dlat: ", dlat, "dlon: ", dlon)
 
     target_location = LocationGlobal(vehicle.location.global_frame.lat + dlat, vehicle.location.global_frame.lon + dlon, alt)
     
-    print(target_location.lat, target_location.lon)
+    print("target lat: ", target_location.lat, "target lon: ", target_location.lon)
     
     return target_location
