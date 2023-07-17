@@ -4,7 +4,7 @@ from get_target_location import get_target_location
 import time
 from pymavlink import mavutil
 
-vehicle = connect("192.168.31.85:14550", wait_ready = False)
+vehicle = connect("192.168.31.85:14550", wait_ready = True)
 
 default_heading = vehicle.heading
 
