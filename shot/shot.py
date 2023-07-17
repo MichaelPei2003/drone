@@ -58,9 +58,13 @@ def shot(vehicle):
     run_servo = 0
 
     #side,l用于find
+    """
+    l控制无人机飞行的速度
+    f和side共同控制无人机飞行的方向
+    """
     side=0
-    l=1
-    f=1
+    l=0
+    f=-1
     count_t = 0
     while True:
         # 读取一帧图像
@@ -91,9 +95,9 @@ def shot(vehicle):
                 print("(",x,",",y,")",flag_servo)
                 #识别到后重置find中的side和l
                 side=0
-                l=1
-                f=1
-                target_location_x = int(x)#晚点再设置吧
+                l=0
+                f=-1
+                target_location_x = int(x)#图传返回的圆筒坐标，是目标点的坐标
                 target_location_y = int(y)
                 if int(flag_servo) == 1 and run_servo == 0 :
                     try:
@@ -104,42 +108,36 @@ def shot(vehicle):
                         pass
 
             else:
-                if count_t%25<25:
-                    print("count_t=",count_t)
-                    if count_t%25==0:
-                        side=side%2+1
-                        print("side=",side)
-                        print("one walk")
-                    find(vehicle,1.5*l,side,f) 
-                    if count_t%25==0:
-                        if side==2:
-                             l=l+1
-                             print("l=",l)
-                             f=-f
-                if count_t>810:
+                print("count_t=",count_t)
+                if count_t%50==0:
+                    side=side%2+1
+                    print("side=",side)
+                    print("走了一步")
+                    if side==1:
+                        l=l+1
+                        print("l=",l)
+                        f=-f
+                        print("f=",f)
+                find(vehicle,l,side,f)
+                if side==1 and f==1:
+                    print("vehicle向右行进")
+                elif side==1 and f==-1:
+                    print("vehicle向左行进")
+                elif side==2 and f==1:
+                    print("vehicle向前行进")
+                elif side==2 and f==-1:
+                    print("vehicle向后行进")
+                if count_t>600:
                     print("无法找到目标，放弃，直接投弹")
                     try:
                         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
                         time.sleep(1)
                         run_servo = 1
+                        print("投弹完成，请继续执行")
                         break
                     except:
                         pass
                 count_t=count_t+1
-                # if vehicle.location.global_relative_frame.alt<6:
-                #     print(0)
-                #     print("无目标，准备上升高度")
-                #     send_body_ned_velocity(0.2,0,-0.2,vehicle)
-                #     print("Altitude_now:%s"%vehicle.location.global_relative_frame.alt)
-                # else:
-                #     print("无目标，准备放弃，开始投弹")
-                #     try:
-                #         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
-                #         time.sleep(1)
-                #         run_servo = 1
-                #         break
-                #     except:
-                #         pass
                 continue
         except BlockingIOError:
         # 如果没有新的数据到达，则等待一段时间再次尝试接收
@@ -192,4 +190,8 @@ def shot(vehicle):
         # 检查是否到达目标点
         if abs(error_x) < 1 and abs(error_y) < 1:
             print("Reached target location")
+            pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
+            time.sleep(1)
+            run_servo = 1
+            print("投弹完成，请继续执行")
             break
