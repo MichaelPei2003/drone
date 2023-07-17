@@ -18,7 +18,7 @@ def shot(vehicle):
     kd = 0.015  # 微分参数
     max_vx=0.4 #前后方向最大速度
     max_vy=0.4 #左右方向最大速度
-    error_x = 0
+    error_x = 0 
     error_y = 0
     proportional_x=0
     proportional_y=0
@@ -65,7 +65,9 @@ def shot(vehicle):
     side=0
     l=0
     f=-1
-    count_t = 0
+    count_t = 0 #计算经过几轮while循环
+    count_in_circle = 60
+    count_in_circle_now = 0
     while True:
         # 读取一帧图像
         ret, frame = cap.read()
@@ -189,10 +191,14 @@ def shot(vehicle):
 
         # 检查是否到达目标点
         if abs(error_x) < 10 and abs(error_y) < 10:
-            print("Reached target location")
-            pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
-            # time.sleep(1)
-            run_servo = 1
-            send_body_ned_velocity(0,0,0.3,vehicle)
-            print("投弹完成，请继续执行")
-            break
+            count_in_circle_now = count_in_circle_now + 1
+            if count_in_circle_now >= count_in_circle:
+                print("Reached target location")
+                pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
+                # time.sleep(1)
+                run_servo = 1
+                print("投弹完成，请继续执行")
+                break
+            if vehicle.location.global_relative_frame.alt>=1:
+                send_body_ned_velocity(0,0,0.1,vehicle)
+            
