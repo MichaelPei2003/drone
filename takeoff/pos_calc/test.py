@@ -24,7 +24,7 @@ print("target location:", target_location.lat, ", ", target_location.lon, ", ", 
 
 vehicle.simple_goto(target_location, airspeed = 0.8)
 
-time.sleep(10)
+time.sleep(38)
 
 print(vehicle.heading)
 
@@ -38,4 +38,8 @@ default_heading,  # param1 (目标偏航角)
 0, 0, 0, 0, 0,0  # param2, param3, param4, param5, param6
 )
 
-print("test ended")
+time.sleep(10)
+
+print("test ended, RTL")
+
+vehicle.mode = VehicleMode("RTL")
