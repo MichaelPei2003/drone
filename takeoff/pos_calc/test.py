@@ -8,7 +8,7 @@ vehicle = connect("192.168.31.85:14550", wait_ready = False)
 
 default_heading = vehicle.heading
 
-target_location = get_target_location(45, 2, vehicle)
+target_location = get_target_location(0, 30, vehicle)
 
 arm(vehicle)
 

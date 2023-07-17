@@ -5,8 +5,6 @@ from dronekit import LocationGlobal
 
 def get_target_location(dheading, x, vehicle):
     heading = vehicle.heading
- 
-    heading += 4.5      #magnetic declination
     
     heading += dheading
 
