@@ -1,24 +1,28 @@
 import math
+from dronekit import LocationGlobal
 
 #使用此函数格式如下: get_target_location([机身指向与目标方向的夹角，左负右正]， [距离]， vehicle)
 
-def get_target_location(target_heading_relative, x, vehicle):
-    lat = vehicle.location.global_frame.lat
-    lon = vehicle.location.global_frame.lon
+def get_target_location(dheading, x, vehicle):
     heading = vehicle.heading
-
-    heading += 4.5#magnetic declination
+ 
+    heading += 4.5      #magnetic declination
     
-    heading += target_heading_relative
+    heading += dheading
 
-    if heading >=360:
+    if heading >= 360:
         heading -= 360
         
-    #change in lat and lon    
-    dlon = x * math.sin(heading)
-    dlat = x * math.cos(heading)
-
-    target_lat = lat + dlat
-    target_lon = lon + dlon
+    print("target_heading: ", heading)
     
-    return target_lat, target_lon
+    heading_radians = math.radians(heading)
+
+    #change in lat and lon    
+    dlon = x * math.sin(heading_radians) * 0.0000093
+    dlat = x * math.cos(heading_radians) * 0.000009
+
+    target_location = LocationGlobal(vehicle.location.global_frame.lat + dlat, vehicle.location.global_frame.lon + dlon, 3)
+    
+    print(target_location.lat, target_location.lon)
+    
+    return target_location
