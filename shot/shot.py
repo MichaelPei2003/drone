@@ -13,7 +13,7 @@ def shot(vehicle):
     k=0.001#控制vx和vy
     # 初始化PID控制器
     dt=0.05
-    kp = 0.7  # 比例参数
+    kp = 1.5  # 比例参数
     ki = 0.5  # 积分参数
     kd = 0.015  # 微分参数
     max_vx=0.4 #前后方向最大速度
@@ -171,8 +171,8 @@ def shot(vehicle):
 
         vx = kp * proportional_x + ki * integral_x + kd * derivative_x
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
-        velocity_vx=k*vy*0.4*0.5
-        velocity_vy=0.08*k*vx*0.6
+        velocity_vx=k*vy*0.4
+        velocity_vy=0.5*k*vx
         if velocity_vx>max_vx:
             velocity_vx=max_vx
             integral_y=0
