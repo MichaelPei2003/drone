@@ -13,7 +13,7 @@ def shot(vehicle):
     k=0.001#控制vx和vy
     # 初始化PID控制器
     dt=0.05
-    kp = 0.58  # 比例参数
+    kp = 0.7  # 比例参数
     ki = 0.5  # 积分参数
     kd = 0.015  # 微分参数
     max_vx=0.4 #前后方向最大速度
@@ -50,7 +50,7 @@ def shot(vehicle):
     print("等待地面站连接...")
     client_socket, client_address = server_socket.accept()
     print("地面站连接成功")
-    arm_and_takeoff(2,vehicle)
+    arm_and_takeoff(3.5,vehicle)
     
     #client_socket.setblocking(False)
     interval = 0.1  # 设置轮询间隔
@@ -118,7 +118,7 @@ def shot(vehicle):
                         print("l=",l)
                         f=-f
                         print("f=",f)
-                find(vehicle,l,side,f)
+                find(vehicle,1.5*l,side,f)
                 if side==1 and f==1:
                     print("vehicle向右行进")
                 elif side==1 and f==-1:
@@ -181,7 +181,7 @@ def shot(vehicle):
             integral_x=0
         print("x:",velocity_vx,"y:",velocity_vy,"alt:",vehicle.location.global_relative_frame.alt)
         # 发送控制信号
-        if vehicle.location.global_relative_frame.alt>2:
+        if vehicle.location.global_relative_frame.alt>3.5:
             send_body_ned_velocity(velocity_vx, velocity_vy, 0.1,vehicle)
         else:
             send_body_ned_velocity(velocity_vx, velocity_vy, 0,vehicle)
