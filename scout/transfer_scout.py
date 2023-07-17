@@ -46,7 +46,7 @@ def transfer():
              #接收数据
             coord = client_socket.recv(4096)
             coord_str = coord.decode("utf-8")
-            set_value(0,coord_str)
+            
             
             if coord_str != '0':
                 x, y, flag_servo = coord_str.split(",")
