@@ -4,6 +4,7 @@ import socket
 import time
 import pigpio
 from Pidshot import Pidshot
+from dronekit import VehicleMode
 
 def shot(vehicle):
     pi = pigpio.pi()  # 连接到pigpiod守护进程
@@ -30,6 +31,7 @@ def shot(vehicle):
     client_socket, client_address = server_socket.accept()
     print("地面站连接成功")
 
+    vehicle.mode = VehicleMode("GUIDED")
     #client_socket.setblocking(False)
     interval = 0.1  # 设置轮询间隔
 
