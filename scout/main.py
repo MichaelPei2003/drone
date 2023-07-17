@@ -11,9 +11,9 @@ from threading import Thread
 from send_body_ned_velocity import send_body_ned_velocity
 
 # 改为当前连接的pixhawk飞控的端口 
-connection_string ='/dev/ttyACM0' 
+connection_string ='192.168.43.169:14550' 
 print('Connectingto vehicle on: %s' % connection_string) 
-vehicle = connect(connection_string, wait_ready=True) 
+vehicle = connect(connection_string, wait_ready=False) 
 
 daemon_thread = Thread(target=transfer)
 daemon_thread.daemon = True  # 设置线程为守护线程
@@ -21,7 +21,7 @@ daemon_thread.daemon = True  # 设置线程为守护线程
 # 启动守护线程
 daemon_thread.start()
 
-arm_and_takeoff(5,vehicle)
+arm_and_takeoff(3,vehicle)
 
 send_body_ned_velocity(0.4,0,0,10,vehicle)
 time.sleep(5)

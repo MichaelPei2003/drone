@@ -61,7 +61,7 @@ def shot(vehicle):
     side=0
     l=1
     f=1
-    t = time.time()
+    count_t = 0
     while True:
         # 读取一帧图像
         ret, frame = cap.read()
@@ -104,15 +104,19 @@ def shot(vehicle):
                         pass
 
             else:
-                t1=time.time()
-                if int((t1-t)%2)==0:
-                    side=side%2+1
-                    find(vehicle,l,side,f)
-                    print("走了一步")
-                if side==2:
-                    l=l+1
-                    f=-f
-                if l>5:
+                if count_t%25<25:
+                    print("count_t=",count_t)
+                    if count_t%25==0:
+                        side=side%2+1
+                        print("side=",side)
+                        print("one walk")
+                    find(vehicle,1.5*l,side,f) 
+                    if count_t%25==0:
+                        if side==2:
+                             l=l+1
+                             print("l=",l)
+                             f=-f
+                if count_t>810:
                     print("无法找到目标，放弃，直接投弹")
                     try:
                         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
@@ -121,6 +125,7 @@ def shot(vehicle):
                         break
                     except:
                         pass
+                count_t=count_t+1
                 # if vehicle.location.global_relative_frame.alt<6:
                 #     print(0)
                 #     print("无目标，准备上升高度")
