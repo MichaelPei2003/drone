@@ -89,9 +89,9 @@ def shot(vehicle):
                 side=1
                 l=0
                 f=1
-                integral_x,integral_y,last_error_x,last_error_y,count_in_circle_now,flag_allowshot=pid_move(vehicle,target_location_x,target_location_y,integral_x,integral_y,last_error_x,last_error_y,count_in_circle_now)
                 target_location_x = int(x)#图传返回的圆筒坐标，是目标点的坐标
                 target_location_y = int(y)
+                integral_x,integral_y,last_error_x,last_error_y,count_in_circle_now,flag_allowshot=pid_move(vehicle,target_location_x,target_location_y,integral_x,integral_y,last_error_x,last_error_y,count_in_circle_now)
                 if int(flag_servo) == 1 and run_servo == 0 and flag_allowshot==1:
                     try:
                         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
