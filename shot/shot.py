@@ -114,7 +114,7 @@ def shot(vehicle):
 
             else:
                 print("count_t=",count_t)
-                if count_t%40==0:
+                if count_t%20==0:
                     side=side%2+1
                     print("side=",side)
                     print("走了一步")
@@ -123,7 +123,9 @@ def shot(vehicle):
                         print("l=",l)
                         f=-f
                         print("f=",f)
-                find(vehicle,1.5*l,side,f)
+                if count_t==0:
+                    find(vehicle,4,side,f)
+                find(vehicle,3*l,side,f)
                 if side==1 and f==1:
                     print("vehicle向右行进")
                 elif side==1 and f==-1:
