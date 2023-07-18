@@ -4,13 +4,13 @@ from get_target_location import get_target_location
 import time
 from pymavlink import mavutil
 
-vehicle = connect("192.168.143.160:14550", wait_ready = False)
+vehicle = connect("/dev/ttyACM0", wait_ready = True)
 
 default_heading = vehicle.heading
 
 print("current location: lat: ", vehicle.location.global_frame.lat, "lon: ", vehicle.location.global_frame.lon)
 
-target_location = get_target_location(0, 30, vehicle)
+target_location = get_target_location(-2, 30, vehicle)
 
 arm(vehicle)
 
@@ -18,15 +18,15 @@ vehicle.mode = VehicleMode("GUIDED")
 
 print("Taking off")
 vehicle.simple_takeoff(3)
-time.sleep(10)
+time.sleep(5)
 
 print("Going to right, 2m")
 
 print("target location:", target_location.lat, ", ", target_location.lon, ", ", target_location.alt)
 
-vehicle.simple_goto(target_location, airspeed = 0.8)
-
-time.sleep(38)
+for i in range(35):
+    vehicle.simple_goto(target_location, airspeed = 0.8)
+    time.sleep(1)
 
 print(vehicle.heading)
 
@@ -42,6 +42,4 @@ default_heading,  # param1 (目标偏航角)
 
 time.sleep(10)
 
-print("test ended, RTL")
-
-vehicle.mode = VehicleMode("RTL")
+print("final lat: ", vehicle.location.global_frame.lat, "final lon: ", vehicle.location.global_frame.lon)
