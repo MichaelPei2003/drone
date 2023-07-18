@@ -4,7 +4,7 @@ from dronekit import VehicleMode
 def Pidshot(x,y,vehicle):
     # PID参数
     Kp = 0.6  # 比例系数 0.5
-    Ki = 0.2  # 积分系数 0.1
+    Ki = 0.1  # 积分系数 0.1
     Kd = 0.02  # 微分系数
     target_X = 70  # 目标X轴坐标
     current_X = 0  # 当前X轴坐标
@@ -18,7 +18,7 @@ def Pidshot(x,y,vehicle):
     derivativeY = 0  # 微分
     current_X=x/640*140 # 测量当前X坐标
     current_Y=y/480*105 # 测量当前Y坐标
-    if (current_X<=67 or current_X>=73):
+    if (current_X<=68 or current_X>=72):
         # 计算误差
         errorX = target_X - current_X
         # 计算积分
@@ -32,9 +32,9 @@ def Pidshot(x,y,vehicle):
         # 应用控制量到无人机 
         vy=controlX*-0.01
         print(vy)
-        send_body_ned_velocity_notime(0,vy,0.07,vehicle) 
+        send_body_ned_velocity_notime(0,vy,0.05,vehicle) 
 
-    if (current_Y<=50 or current_Y>=55):
+    if (current_Y<=51 or current_Y>=54):
         # 计算误差
         errorY = target_Y - current_Y
         # 计算积分
@@ -48,9 +48,9 @@ def Pidshot(x,y,vehicle):
         # 应用控制量到无人机
         vx=controlY*0.01
         print(vx)
-        send_body_ned_velocity_notime(vx,0,0.07,vehicle)
+        send_body_ned_velocity_notime(vx,0,0.05,vehicle)
 
-    if (current_X>=67 and current_X<=73 and current_Y>=50 and current_Y<=55):
+    if (current_X>=68 and current_X<=72 and current_Y>=51 and current_Y<=54):
         #if reach the range of xy,change mode to "LAND"
         print("reach the range")
         vehicle.mode = VehicleMode("LAND")
