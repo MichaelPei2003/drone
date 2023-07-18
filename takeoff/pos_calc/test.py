@@ -4,7 +4,7 @@ from get_target_location import get_target_location
 import time
 from pymavlink import mavutil
 
-vehicle = connect("/dev/ttyACM0", wait_ready = True)
+vehicle = connect("192.168.31.85:14550", wait_ready = False)
 
 default_heading = vehicle.heading
 
@@ -18,7 +18,7 @@ vehicle.mode = VehicleMode("GUIDED")
 
 print("Taking off")
 vehicle.simple_takeoff(3)
-time.sleep(5)
+time.sleep(2)
 
 print("Going to right, 2m")
 
