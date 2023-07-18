@@ -132,7 +132,7 @@ def shot(vehicle):
                     print("vehicle向前行进")
                 elif side==2 and f==-1:
                     print("vehicle向后行进")
-                if count_t>600:
+                if count_t>90:
                     print("无法找到目标，放弃，直接投弹")
                     try:
                         pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
