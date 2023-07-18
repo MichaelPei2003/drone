@@ -30,7 +30,7 @@
         - arm_and_takeoff.py
         - shot.py
         - send_body_ned_velocity.py
-        - 主函数shot_main,调用arm_and_takeoff,然后调用shot，shot里再调用Pidshot，Pidshot调用send_body_ned_velocity,还需要改pid和send_body_ned_velocity
+        - 主函数shot_main,调用arm_and_takeoff,然后调用shot，shot里再调用Pidshot，Pidshot调用send_body_ned_velocity_notime,还有send_body_ned_velocity(还需要改pid和send_body_ned_velocity,完美结论达成！)
  ---
  ### 备忘 ###
  - 当前使用的飞控固件版本为arducopter 3.2.1
@@ -131,3 +131,5 @@
 ### 7.16更新 ###
 - **hz**:
     - 修改了pid的参数，增加了部分注释
+- **hjw**:
+    - 依靠纯理论就改进完pid捏，藻：不信谣不传谣。怎么回事捏，学好数理化，走哪都爆炸
