@@ -27,7 +27,7 @@ send_body_ned_velocity(0.4,0,0,10,vehicle)
 time.sleep(5)
 print("first path")
 
-send_body_ned_velocity(-0.4,-0.3,0,10,vehicle)
+send_body_ned_velocity(-0.4,0.3,0,10,vehicle)
 time.sleep(5)
 print("second path")
 
@@ -35,7 +35,7 @@ send_body_ned_velocity(0.4,0,0,10,vehicle)
 time.sleep(5)
 print("third path")
 
-send_body_ned_velocity(-0.4,-0.3,0,10,vehicle)
+send_body_ned_velocity(-0.4,0.3,0,10,vehicle)
 time.sleep(5)
 print("forth path")
 
@@ -43,7 +43,7 @@ send_body_ned_velocity(0.4,0,0,10,vehicle)
 time.sleep(5)
 print("fifth path")
 
-send_body_ned_velocity(-0.2,0.3,0,20,vehicle)
+send_body_ned_velocity(-0.2,-0.3,0,20,vehicle)
 time.sleep(5)
 print("sixth path")
 
