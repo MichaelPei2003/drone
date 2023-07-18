@@ -62,9 +62,9 @@ def shot(vehicle):
     l控制无人机飞行的速度
     f和side共同控制无人机飞行的方向
     """
-    side=0
+    side=1
     l=0
-    f=-1
+    f=1
     count_t = 0 #计算经过几轮while循环
     count_in_circle = 60
     count_in_circle_now = 0
@@ -96,9 +96,9 @@ def shot(vehicle):
                 x, y, flag_servo = coord_str.split(",")
                 print("(",x,",",y,")",flag_servo)
                 #识别到后重置find中的side和l
-                side=0
+                side=1
                 l=0
-                f=-1
+                f=1
                 target_location_x = int(x)#图传返回的圆筒坐标，是目标点的坐标
                 target_location_y = int(y)
                 if int(flag_servo) == 1 and run_servo == 0 :
