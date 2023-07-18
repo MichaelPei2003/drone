@@ -5,7 +5,7 @@ import time
 from send_body_ned_velocity import send_body_ned_velocity
 
 #connect to drone 
-connection_string ='/dev/ttyACM0' #Com of current FCM connection
+connection_string ='/dev/tty/ACM0' #Com of current FCM connection
 print('Connectingto vehicle on: %s' % connection_string) 
 vehicle = connect (connection_string, wait_ready=True) 
 
