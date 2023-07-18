@@ -8,4 +8,4 @@ def find(vehicle=None,l=0,side=0,f=0):
     if side==1:
         send_body_ned_velocity(0,f*0.1*l,0,vehicle)
     elif side==2:
-        send_body_ned_velocity(f*0.1*l,0,0,vehicle)
+        send_body_ned_velocity(f*0.2*l,0,0,vehicle)
