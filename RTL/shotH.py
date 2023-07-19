@@ -33,6 +33,25 @@ def shot(vehicle):
     print("等待地面站连接...")
     client_socket, client_address = server_socket.accept()
     print("地面站连接成功")
+
+    # 读取一帧图像
+    ret, frame = cap.read()
+
+    # 编码图像
+    result, imgencode = cv2.imencode('.jpg', frame, encode_param)
+
+    # 将图像转换成字符格式
+    data = np.array(imgencode)
+    stringData = data.tobytes()
+
+    # 发送图像大小
+    client_socket.send(str(len(stringData)).ljust(16).encode())
+
+    # 发送图像数据
+    client_socket.send(stringData)
+
+    # 显示图像
+    #  cv2.imshow('frame', frame)
     
     arm_and_takeoff(2,vehicle)
     send_body_ned_velocity(0.4,0,0,10,vehicle)
