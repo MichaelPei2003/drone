@@ -1,5 +1,6 @@
 from send_body_ned_velocity_notime import send_body_ned_velocity_notime
 from dronekit import VehicleMode
+import time
 
 def Pidshot(x,y,vehicle):
     # PID参数
@@ -52,5 +53,8 @@ def Pidshot(x,y,vehicle):
 
     if (current_X>=68 and current_X<=72 and current_Y>=51 and current_Y<=54):
         #if reach the range of xy,change mode to "LAND"
+        if vehicle.location.global_relative_frame.alt<=1:
+            vehicle.mode = VehicleMode("LAND")
+            time.sleep(10)
         print("reach the range")
         vehicle.mode = VehicleMode("LAND")

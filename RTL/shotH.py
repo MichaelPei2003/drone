@@ -53,11 +53,11 @@ def shot(vehicle):
     # 显示图像
     #  cv2.imshow('frame', frame)
     
-    arm_and_takeoff(2,vehicle)
+    arm_and_takeoff(3,vehicle)
     send_body_ned_velocity(0.4,0,0,10,vehicle)
     time.sleep(5)
     vehicle.mode = VehicleMode("RTL")
-    time.sleep(3)
+    time.sleep(2)
 
     vehicle.mode = VehicleMode("GUIDED")
     #client_socket.setblocking(False)

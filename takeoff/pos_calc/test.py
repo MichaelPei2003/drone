@@ -10,7 +10,7 @@ default_heading = vehicle.heading
 
 print("current location: lat: ", vehicle.location.global_frame.lat, "lon: ", vehicle.location.global_frame.lon)
 
-target_location = get_target_location(-3, 30, vehicle)
+target_location = get_target_location(0, 32, vehicle)
 
 arm(vehicle)
 
