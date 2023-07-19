@@ -4,7 +4,9 @@ import socket
 import time
 import pigpio
 from Pidshot import Pidshot
-from dronekit import VehicleMode
+from arm_and_takeoff import arm_and_takeoff
+import time
+from send_body_ned_velocity import send_body_ned_velocity
 
 def shot(vehicle):
     pi = pigpio.pi()  # 连接到pigpiod守护进程
