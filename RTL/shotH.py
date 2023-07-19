@@ -33,6 +33,7 @@ def shot(vehicle):
     print("等待地面站连接...")
     client_socket, client_address = server_socket.accept()
     print("地面站连接成功")
+    
     arm_and_takeoff(2,vehicle)
     send_body_ned_velocity(0.4,0,0,10,vehicle)
     time.sleep(5)
