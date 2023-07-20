@@ -1,4 +1,5 @@
 import cv2
+from send_body_ned_velocity_notime import send_body_ned_velocity_notime
 import numpy as np
 import socket
 import time
@@ -9,15 +10,17 @@ from RTL import PidRTL
 from scout import scout
 from send_body_ned_velocity import send_body_ned_velocity
 from threading import Thread
-from index import get_value
+from index import get_value,_init
 from get_target_location import get_target_location
 from pymavlink import mavutil
+import pigpio
 
 #connect to drone 
-connection_string ='/dev/ttyACM0' #Com of current FCM connection
+connection_string ='172.20.10.6:14550' #Com of current FCM connection
 print('Connectingto vehicle on: %s' % connection_string) 
-vehicle = connect (connection_string, wait_ready=True) 
+vehicle = connect (connection_string, wait_ready=False) 
 
+_init()
 k=0.001#控制vx和vy
 # 初始化PID控制器
 dt=0.05
@@ -39,7 +42,7 @@ last_error_y = 0
 
 allow_error_x=30
 allow_error_y=30
-count_in_circle = 40
+count_in_circle = 20
 count_in_circle_now = 0
 pi = pigpio.pi()  # 连接到pigpiod守护进程
 
@@ -84,14 +87,14 @@ client_socket.send(str(len(stringData)).ljust(16).encode())
 client_socket.send(stringData)
 
 #get scout area start
-scout_start = get_target_location(-3, 51.08, vehicle)
+scout_start = get_target_location(-2, 57, vehicle)
 
 
 
 #takeoff and leave tekeoff area
 default_heading = vehicle.heading
 print("current location: lat: ", vehicle.location.global_frame.lat, "lon: ", vehicle.location.global_frame.lon)
-target_location = get_target_location(0, 30, vehicle)
+target_location = get_target_location(0, 32, vehicle)
 print("Arming motors...")
 vehicle.mode = VehicleMode("GUIDED")
 print("Vehicle mode: GUIDED")
@@ -103,11 +106,11 @@ while not vehicle.armed:
     time.sleep(1)
 vehicle.mode = VehicleMode("GUIDED")
 print("Taking off")
-vehicle.simple_takeoff(3)
+vehicle.simple_takeoff(3.5)
 time.sleep(4)
 print("target location:", target_location.lat, ", ", target_location.lon, ", ", target_location.alt)
 vehicle.simple_goto(target_location, airspeed = 1)
-time.sleep(25)
+time.sleep(27)
 time_start = time.time()
 
 
@@ -121,7 +124,7 @@ l控制无人机飞行的速度
 f和side共同控制无人机飞行的方向
 """
 side=1
-l=0
+l=2
 f=1
 count_t = 0 #计算经过几轮while循环
 
@@ -156,11 +159,46 @@ while True:
 
     # 显示图像
     #   cv2.imshow('frame', frame)
+    if fstep==1:
+        fscout=get_value(0)
+    if fshot==1 and fscout==0 and fstep==0 and f_goto_scout==1:
+        print("scout open!")
+        daemon_thread = Thread(target=scout,args=(vehicle,))
+        daemon_thread.daemon = True  # 设置线程为守护线程
+        # 启动守护线程
+        print("ok")
+        daemon_thread.start()
+        time.sleep(100)
+        fstep=1
+        continue
+    if run_servo == 1 and f_goto_scout == 0 and fshot == 1 and fstep==0:
+        #from shot area to scout area
+        vehicle.simple_goto(scout_start, airspeed = 1.5)
+        time.sleep(17)
+        print("go to scout")
+        vehicle.message_factory.command_long_send(
+        0, 0,  # target_system, target_component
+        mavutil.mavlink.MAV_CMD_CONDITION_YAW,  # command
+        0,  # confirmation
+        default_heading,  # param1 (目标偏航角)
+        0, 0, 0, 0, 0,0  # param2, param3, param4, param5, param6
+        )
+        time.sleep(2)
+        f_goto_scout = 1
+        print("move over")
+        continue
+    if fscout==1 and fshot==1 and fstep==1 and frlt==0:
+        print("RTL open!")
+        vehicle.mode = VehicleMode("RTL")
+        time.sleep(20)
+        vehicle.mode = VehicleMode("GUIDED")
+        frlt=1
 
     try:
         #接收数据
         coord = client_socket.recv(4096)
-        coord_str = coord.decode("utf-8")
+        coord_str = coord.decode("utf-8")            
+
         if coord_str != '0':
             x, y, flag_servo = coord_str.split(",")
             print("(",x,",",y,")",flag_servo)
@@ -168,9 +206,6 @@ while True:
             side=1
             l=0
             f=1
-
-
-
 
             if f_takeoff == 0:
                 vehicle.commands.upload()
@@ -185,35 +220,6 @@ while True:
                 )
                 f_takeoff = 1
 
-            if run_servo == 1 and f_goto_scout == 0 and fshot == 1:
-                #from shot area to scout area
-                vehicle.simple_goto(scout_start, airspeed = 1.5)
-                time.sleep(14)
-                print("go to scout")
-                vehicle.message_factory.command_long_send(
-                0, 0,  # target_system, target_component
-                mavutil.mavlink.MAV_CMD_CONDITION_YAW,  # command
-                0,  # confirmation
-                default_heading,  # param1 (目标偏航角)
-                0, 0, 0, 0, 0,0  # param2, param3, param4, param5, param6
-                )
-                f_goto_scout = 1
-
-            if fstep==1:
-                fscout=get_value(0)
-            if fshot==1 and fscout==0 and fstep==0:
-                print("scout open!")
-                daemon_thread = Thread(target=scout)
-                daemon_thread.daemon = True  # 设置线程为守护线程
-                # 启动守护线程
-                daemon_thread.start()
-                fstep=1
-            if fscout==1 and fshot==1 and fstep==1 and frlt==0:
-                print("RTL open!")
-                vehicle.mode = VehicleMode("RTL")
-                time.sleep(20)
-                vehicle.mode = VehicleMode("GUIDED")
-                frlt=1
             if fscout==1 and fshot==1 and frtl==1:
                 dx=int(x)
                 dy=int(y)
@@ -230,11 +236,9 @@ while True:
                     pass
 
 
-
-
-        elif coord_str == '0' and f_takeoff == 0 and time.time() - time_start <= 7:
+        elif coord_str == '0' and f_takeoff == 0 and time.time() - time_start <= 15:
             continue
-        elif coord_str == '0' and f_takeoff == 0 and time.time() - time.start > 7:
+        elif coord_str == '0' and f_takeoff == 0 and time.time() - time_start > 15:
             f_takeoff = 1
 
 
@@ -247,14 +251,15 @@ while True:
                 print("side=",side)
                 print("走了一步")
                 if side==1:
-                    l=l+1
+                    l=l+0.5
+                    l=l+0.5
                     print("l=",l)
                     f=-f
                     print("f=",f)
             if count_t==0:
                 find(vehicle,4,side,f)
             else:
-                find(vehicle,3*l,side,f)
+                find(vehicle,2*l,side,f)
             if side==1 and f==1:
                 print("vehicle向右行进")
             elif side==1 and f==-1:
@@ -263,7 +268,7 @@ while True:
                 print("vehicle向前行进")
             elif side==2 and f==-1:
                 print("vehicle向后行进")
-            if count_t>90:
+            if count_t>360:
                 print("无法找到目标，放弃，直接投弹")
                 try:
                     pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
@@ -300,7 +305,7 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    if fshot==0:    
+    if fshot==0 and coord_str != '0':    
         # 获取当前位置
         print("shot open!")
         current_location_x=320
@@ -334,15 +339,15 @@ while True:
         print("x:",velocity_vx,"y:",velocity_vy,"alt:",vehicle.location.global_relative_frame.alt)
         # 发送控制信号
         if vehicle.location.global_relative_frame.alt>3.5:
-            send_body_ned_velocity(velocity_vx, velocity_vy, 0.1,vehicle)
+            send_body_ned_velocity_notime(velocity_vx, velocity_vy, 0.1,vehicle)
         else:
-            send_body_ned_velocity(velocity_vx, velocity_vy, 0,vehicle)
+            send_body_ned_velocity_notime(velocity_vx, velocity_vy, 0,vehicle)
             
 
         # 检查是否到达目标点
         if abs(error_x) < allow_error_x and abs(error_y) < allow_error_y:
             count_in_circle_now = count_in_circle_now + 1
-            if count_in_circle_now >= count_in_circle:
+            if count_in_circle_now >= count_in_circle and flag_servo==1:
                 print("Reached target location")
                 pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
                 # time.sleep(1)
@@ -351,10 +356,13 @@ while True:
                 fshot=1
                 #wait to move
                 continue
-            if vehicle.location.global_relative_frame.alt>=1:
-                send_body_ned_velocity(0,0,0.3,vehicle)
-                allow_error_x=allow_error_x+5
-                allow_erroe_y=allow_error_y+5
+            if vehicle.location.global_relative_frame.alt>=2:
+                send_body_ned_velocity_notime(0,0,0.3,vehicle)
+                allow_error_x=allow_error_x+10
+                allow_erroe_y=allow_error_y+10
+                kp=kp*0.8
+                ki=ki*0.8
+                kd=kd*0.8
         else:
             count_in_circle_now=0
 
@@ -367,4 +375,3 @@ pi.stop()  # 断开与pigpiod守护进程的连接
 
 # 关闭连接
 client_socket.close()
-server_socket.close()    

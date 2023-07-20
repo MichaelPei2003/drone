@@ -5,8 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from threading import Thread
 from send_body_ned_velocity import send_body_ned_velocity
 
-def scout(vehicle):
-    _init()
+def scout(vehicle=None):
     fscout=0
     set_value(0,fscout)
     send_body_ned_velocity(0.4,0,0,10,vehicle)

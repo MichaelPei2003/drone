@@ -5,7 +5,7 @@ from dronekit import LocationGlobal
 
 def get_target_location(dheading, x, vehicle):
     heading = vehicle.heading
-    alt = vehicle.location.global_frame.alt + 3
+    alt = vehicle.location.global_frame.alt + 3.5
     
     heading += dheading
 
