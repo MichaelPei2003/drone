@@ -1,5 +1,6 @@
 from send_body_ned_velocity_notime import send_body_ned_velocity_notime
 from dronekit import VehicleMode
+import time
 
 def PidRTL(x,y,vehicle):
     # PID参数
@@ -18,7 +19,7 @@ def PidRTL(x,y,vehicle):
     derivativeY = 0  # 微分
     current_X=x/640*140 # 测量当前X坐标
     current_Y=y/480*105 # 测量当前Y坐标
-    if (current_X<=68 or current_X>=72):
+    if (current_X<=67 or current_X>=73):
         # 计算误差
         errorX = target_X - current_X
         # 计算积分
@@ -32,9 +33,9 @@ def PidRTL(x,y,vehicle):
         # 应用控制量到无人机 
         vy=controlX*-0.01
         print(vy)
-        send_body_ned_velocity_notime(0,vy,0.05,vehicle) 
+        send_body_ned_velocity_notime(0,vy,0.02,vehicle) 
 
-    if (current_Y<=51 or current_Y>=54):
+    if (current_Y<=50 or current_Y>=55):
         # 计算误差
         errorY = target_Y - current_Y
         # 计算积分
@@ -48,9 +49,9 @@ def PidRTL(x,y,vehicle):
         # 应用控制量到无人机
         vx=controlY*0.01
         print(vx)
-        send_body_ned_velocity_notime(vx,0,0.05,vehicle)
+        send_body_ned_velocity_notime(vx,0,0.02,vehicle)
 
-    if (current_X>=68 and current_X<=72 and current_Y>=51 and current_Y<=54):
+    if (current_X>=67 and current_X<=73 and current_Y>=50 and current_Y<=55):
         #if reach the range of xy,change mode to "LAND"
         if vehicle.location.global_relative_frame.alt<=1:
             vehicle.mode = VehicleMode("LAND")

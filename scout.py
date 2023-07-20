@@ -1,11 +1,10 @@
-from index import _init,set_value
+from index import set_value
 import time 
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from threading import Thread
 from send_body_ned_velocity import send_body_ned_velocity
 
-def scout(vehicle=None):
+def scout(vehicle):
     fscout=0
     set_value(0,fscout)
     send_body_ned_velocity(0.4,0,0,10,vehicle)
