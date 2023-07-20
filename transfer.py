@@ -16,9 +16,9 @@ from pymavlink import mavutil
 import pigpio
 
 #connect to drone 
-connection_string ='172.20.10.6:14550' #Com of current FCM connection
+connection_string ='/dev/ttyACM0' #Com of current FCM connection
 print('Connectingto vehicle on: %s' % connection_string) 
-vehicle = connect (connection_string, wait_ready=False) 
+vehicle = connect (connection_string, wait_ready=True) 
 
 _init()
 k=0.001#控制vx和vy
@@ -40,9 +40,9 @@ derivative_y=0
 last_error_x = 0
 last_error_y = 0
 
-allow_error_x=30
-allow_error_y=30
-count_in_circle = 20
+allow_error_x=60
+allow_error_y=60
+count_in_circle = 10
 count_in_circle_now = 0
 pi = pigpio.pi()  # 连接到pigpiod守护进程
 
@@ -355,8 +355,8 @@ while True:
                 print("投弹完成，请继续执行")
                 fshot=1
                 #wait to move
-                continue
-            if vehicle.location.global_relative_frame.alt>=2:
+                break
+            if vehicle.location.global_relative_frame.alt>=2.5:
                 send_body_ned_velocity_notime(0,0,0.3,vehicle)
                 allow_error_x=allow_error_x+10
                 allow_erroe_y=allow_error_y+10

@@ -21,13 +21,13 @@ connection_string ='/dev/ttyACM0' #Com of current FCM connection
 print('Connectingto vehicle on: %s' % connection_string) 
 vehicle = connect (connection_string, wait_ready=True) 
 
-_init
+_init()
 k=0.001#控制vx和vy
 # 初始化PID控制器
 dt=0.05
 kp = 1.5  # 比例参数
 ki = 0.5  # 积分参数
-kd = 0.03  # 微分参数
+kd = 0.025  # 微分参数
 max_vx=0.4 #前后方向最大速度
 max_vy=0.4 #左右方向最大速度
 error_x = 0 
@@ -40,6 +40,8 @@ derivative_x=0
 derivative_y=0
 last_error_x = 0
 last_error_y = 0
+target_location_x=0
+target_location_y=0
 
 allow_error_x=30
 allow_error_y=30
@@ -88,7 +90,7 @@ client_socket.send(str(len(stringData)).ljust(16).encode())
 client_socket.send(stringData)
 
 #get scout area start
-scout_start = get_target_location(-2, 57, vehicle)
+scout_start = get_target_location(-2, 55, vehicle)
 
 
 
@@ -123,7 +125,7 @@ side=1
 l=2
 f=1
 count_t = 0 #计算经过几轮while循环
-
+count_see=0 #计算看见情况下的while循环
 
 #client_socket.setblocking(False)
 interval = 0.1  # 设置轮询间隔
@@ -136,6 +138,7 @@ fshot=0
 fscout=0
 fstep=0
 f_goto_scout = 0
+
 while True:
     # 读取一帧图像
     ret, frame = cap.read()
@@ -182,6 +185,9 @@ while True:
                 f_takeoff = 1
 
             if fshot==0:
+                count_see=count_see+1
+                if count_see>3600:
+                    break
                 target_location_x = int(x)#图传返回的圆筒坐标，是目标点的坐标
                 target_location_y = int(y)
             if int(flag_servo) == 1 and run_servo == 0 :
@@ -194,7 +200,7 @@ while True:
 
         elif coord_str == '0' and f_takeoff == 0 and time.time() - time_start <= 7:
             continue
-        elif coord_str == '0' and f_takeoff == 0 and time.time() - time.start > 7:
+        elif coord_str == '0' and f_takeoff == 0 and time.time() - time_start > 7:
             f_takeoff = 1
 
         elif coord_str == '0' and fshot==0:
@@ -280,7 +286,7 @@ while True:
         vx = kp * proportional_x + ki * integral_x + kd * derivative_x
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
         velocity_vx=k*vy*0.4
-        velocity_vy=0.5*k*vx
+        velocity_vy=0.55*k*vx
         if velocity_vx>max_vx:
             velocity_vx=max_vx
             integral_y=0
@@ -337,6 +343,7 @@ daemon_thread = Thread(target=scout,args=(vehicle,))
 daemon_thread.daemon = True  # 设置线程为守护线程
 # 启动守护线程
 daemon_thread.start()
+
 while True:
     # 读取一帧图像
     ret, frame = cap.read()
@@ -354,6 +361,9 @@ while True:
     # 发送图像数据
     client_socket.send(stringData)
     
+    coord = client_socket.recv(4096)
+    coord_str = coord.decode("utf-8")
+
     fscout=get_value(0)
     if fscout==1:
         break
@@ -361,8 +371,9 @@ while True:
 #model RTL      
 print("RTL open!")
 vehicle.mode = VehicleMode("RTL")
-time.sleep(20)
+time.sleep(15)
 vehicle.mode = VehicleMode("GUIDED")
+print("LAND OPEN")
 
 while True:
     # 读取一帧图像
@@ -380,53 +391,21 @@ while True:
 
     # 发送图像数据
     client_socket.send(stringData)
-
+    
     # 显示图像
     #   cv2.imshow('frame', frame)
 
-    try:
-        #接收数据
-        coord = client_socket.recv(4096)
-        coord_str = coord.decode("utf-8")
-        if coord_str != '0':
-            x, y, flag_servo = coord_str.split(",")
-            print("(",x,",",y,")",flag_servo)
-            dx=int(x)
-            dy=int(y)
-            PidRTL(dx,dy,vehicle)
-            if int(flag_servo) == 1 and run_servo == 0 :
-                try:
-                    pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
-                    time.sleep(1)
-                    run_servo = 1
-                except:
-                    pass
+    #接收数据
+    coord = client_socket.recv(4096)
+    coord_str = coord.decode("utf-8")
+    print(coord_str)
+    if coord_str != '0':
+        x, y, flag_servo = coord_str.split(",")
+        print("(",x,",",y,")",flag_servo)
+        dx=int(x)
+        dy=int(y)
+        PidRTL(dx,dy,vehicle)
+    else:
+        print(0)
 
-        else:
-            print(0)
-
-            #print('1')
-    except BlockingIOError:
-        # 如果没有新的数据到达，则等待一段时间再次尝试接收
-        time.sleep(interval)
-    except BrokenPipeError:
-        time.sleep(interval)
-    except ConnectionResetError:
-        time.sleep(interval)
-    except ValueError:
-        # 关舵机
-        pi.set_servo_pulsewidth(servo_pin, servo_min)  # 最小位置
-        time.sleep(1)
-        pi.set_servo_pulsewidth(servo_pin, 0)
-        pi.stop()  # 断开与pigpiod守护进程的连接
-
-        # 关闭连接
-        client_socket.close()
-        server_socket.close()
-
-    except socket.error as e:
-        # 发生其他错误，退出循循环
-        print("Error receiving data:")
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        #print('1')

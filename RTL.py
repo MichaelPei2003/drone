@@ -33,7 +33,7 @@ def PidRTL(x,y,vehicle):
         # 应用控制量到无人机 
         vy=controlX*-0.01
         print(vy)
-        send_body_ned_velocity_notime(0,vy,0.02,vehicle) 
+        send_body_ned_velocity_notime(0,vy,0.04,vehicle) 
 
     if (current_Y<=50 or current_Y>=55):
         # 计算误差
@@ -49,11 +49,11 @@ def PidRTL(x,y,vehicle):
         # 应用控制量到无人机
         vx=controlY*0.01
         print(vx)
-        send_body_ned_velocity_notime(vx,0,0.02,vehicle)
+        send_body_ned_velocity_notime(vx,0,0.04,vehicle)
 
     if (current_X>=67 and current_X<=73 and current_Y>=50 and current_Y<=55):
         #if reach the range of xy,change mode to "LAND"
-        if vehicle.location.global_relative_frame.alt<=1:
+        if vehicle.location.global_relative_frame.alt<=1.5:
             vehicle.mode = VehicleMode("LAND")
             time.sleep(10)
         print("reach the range")
