@@ -25,9 +25,9 @@ _init()
 k=0.001#控制vx和vy
 # 初始化PID控制器
 dt=0.05
-kp = 1.5  # 比例参数
+kp = 1.7  # 比例参数
 ki = 0.5  # 积分参数
-kd = 0.025  # 微分参数
+kd = 0.015  # 微分参数
 max_vx=0.4 #前后方向最大速度
 max_vy=0.4 #左右方向最大速度
 error_x = 0 
@@ -43,8 +43,8 @@ last_error_y = 0
 target_location_x=0
 target_location_y=0
 
-allow_error_x=30
-allow_error_y=30
+allow_error_x=35
+allow_error_y=35
 count_in_circle = 40
 count_in_circle_now = 0
 pi = pigpio.pi()  # 连接到pigpiod守护进程
@@ -90,7 +90,7 @@ client_socket.send(str(len(stringData)).ljust(16).encode())
 client_socket.send(stringData)
 
 #get scout area start
-scout_start = get_target_location(-2, 55, vehicle)
+scout_start = get_target_location(-2, 50, vehicle)
 
 
 
@@ -138,6 +138,8 @@ fshot=0
 fscout=0
 fstep=0
 f_goto_scout = 0
+#fmodel="0"
+#fmodel.send("0")
 
 while True:
     # 读取一帧图像
@@ -186,7 +188,7 @@ while True:
 
             if fshot==0:
                 count_see=count_see+1
-                if count_see>3600:
+                if count_see>1800:
                     break
                 target_location_x = int(x)#图传返回的圆筒坐标，是目标点的坐标
                 target_location_y = int(y)
@@ -295,7 +297,7 @@ while True:
             integral_x=0
         print("x:",velocity_vx,"y:",velocity_vy,"alt:",vehicle.location.global_relative_frame.alt)
         # 发送控制信号
-        if vehicle.location.global_relative_frame.alt>3.5:
+        if vehicle.location.global_relative_frame.alt>3:
             send_body_ned_velocity_notime(velocity_vx, velocity_vy, 0.1,vehicle)
         else:
             send_body_ned_velocity_notime(velocity_vx, velocity_vy, 0,vehicle)
@@ -304,7 +306,7 @@ while True:
         # 检查是否到达目标点
         if abs(error_x) < allow_error_x and abs(error_y) < allow_error_y:
             count_in_circle_now = count_in_circle_now + 1
-            if count_in_circle_now >= count_in_circle:
+            if count_in_circle_now >= count_in_circle and flag_servo==1:
                 print("Reached target location")
                 pi.set_servo_pulsewidth(servo_pin, servo_max)  # 最大位置
                 # time.sleep(1)
@@ -313,13 +315,10 @@ while True:
                 fshot=1
                 #wait to move
                 break
-            if vehicle.location.global_relative_frame.alt>=2:
+            if vehicle.location.global_relative_frame.alt>=3:
                 send_body_ned_velocity_notime(0,0,0.1,vehicle)
                 allow_error_x=allow_error_x+10
                 allow_erroe_y=allow_error_y+10
-                kp=kp*0.8
-                ki=ki*0.8
-                kd=kd*0.8
         else:
             count_in_circle_now=0
 
@@ -343,7 +342,8 @@ daemon_thread = Thread(target=scout,args=(vehicle,))
 daemon_thread.daemon = True  # 设置线程为守护线程
 # 启动守护线程
 daemon_thread.start()
-
+#fmodel="1"
+#fmodel.send("1")
 while True:
     # 读取一帧图像
     ret, frame = cap.read()
@@ -374,7 +374,8 @@ vehicle.mode = VehicleMode("RTL")
 time.sleep(15)
 vehicle.mode = VehicleMode("GUIDED")
 print("LAND OPEN")
-
+#fmodel="2"
+#fmodel.send("2")
 while True:
     # 读取一帧图像
     ret, frame = cap.read()

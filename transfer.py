@@ -24,11 +24,11 @@ _init()
 k=0.001#控制vx和vy
 # 初始化PID控制器
 dt=0.05
-kp = 1.5  # 比例参数
-ki = 0.5  # 积分参数
-kd = 0.03  # 微分参数
-max_vx=0.4 #前后方向最大速度
-max_vy=0.4 #左右方向最大速度
+kp = 0.85 # 比例参数
+ki = 0.4  # 积分参数
+kd = 0.05  # 微分参数
+max_vx=0.6 #前后方向最大速度
+max_vy=0.6 #左右方向最大速度
 error_x = 0 
 error_y = 0
 proportional_x=0
@@ -40,9 +40,9 @@ derivative_y=0
 last_error_x = 0
 last_error_y = 0
 
-allow_error_x=60
-allow_error_y=60
-count_in_circle = 10
+allow_error_x=40
+allow_error_y=40
+count_in_circle = 60
 count_in_circle_now = 0
 pi = pigpio.pi()  # 连接到pigpiod守护进程
 
@@ -106,11 +106,11 @@ while not vehicle.armed:
     time.sleep(1)
 vehicle.mode = VehicleMode("GUIDED")
 print("Taking off")
-vehicle.simple_takeoff(3.5)
+vehicle.simple_takeoff(3)
 time.sleep(4)
-print("target location:", target_location.lat, ", ", target_location.lon, ", ", target_location.alt)
-vehicle.simple_goto(target_location, airspeed = 1)
-time.sleep(27)
+#print("target location:", target_location.lat, ", ", target_location.lon, ", ", target_location.alt)
+#vehicle.simple_goto(target_location, airspeed = 1)
+#time.sleep(27)
 time_start = time.time()
 
 
@@ -328,18 +328,18 @@ while True:
 
         vx = kp * proportional_x + ki * integral_x + kd * derivative_x
         vy = kp * proportional_y + ki * integral_y + kd * derivative_y
-        velocity_vx=k*vy*0.4
-        velocity_vy=0.5*k*vx
+        velocity_vx=k*vy
+        velocity_vy=k*vx
         if velocity_vx>max_vx:
             velocity_vx=max_vx
-            integral_y=0
+            integral_x=0
         if velocity_vy>max_vy:
             velocity_vy=max_vy
-            integral_x=0
+            integral_y=0
         print("x:",velocity_vx,"y:",velocity_vy,"alt:",vehicle.location.global_relative_frame.alt)
         # 发送控制信号
-        if vehicle.location.global_relative_frame.alt>3.5:
-            send_body_ned_velocity_notime(velocity_vx, velocity_vy, 0.1,vehicle)
+        if vehicle.location.global_relative_frame.alt>3:
+            send_body_ned_velocity_notime(velocity_vx, velocity_vy, 0.05,vehicle)
         else:
             send_body_ned_velocity_notime(velocity_vx, velocity_vy, 0,vehicle)
             
@@ -356,13 +356,8 @@ while True:
                 fshot=1
                 #wait to move
                 break
-            if vehicle.location.global_relative_frame.alt>=2.5:
-                send_body_ned_velocity_notime(0,0,0.3,vehicle)
-                allow_error_x=allow_error_x+10
-                allow_erroe_y=allow_error_y+10
-                kp=kp*0.8
-                ki=ki*0.8
-                kd=kd*0.8
+            if vehicle.location.global_relative_frame.alt>=3:
+                send_body_ned_velocity_notime(0,0,0.05,vehicle)
         else:
             count_in_circle_now=0
 
