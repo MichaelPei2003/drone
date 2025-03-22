@@ -74,7 +74,7 @@
  - GPS定位有约50cm的误差，需要纳入考虑
  - 手切RTL返航点准确，需在RTL返回返航点后切换至LAND实现自动落地
  - 调整RTL标准参数之后，做到返航高度5米，滞留10秒，降落速度30cm/s，误差现在在80cm左右，目标20cm左右
- -https://stackoverflow.com/questions/76063407/problems-installing-pymavlink-2-4-8
+ - https://stackoverflow.com/questions/76063407/problems-installing-pymavlink-2-4-8
 ### 7.9更新 ###
  - 修正了新的控制函数，更正了Pid坐标设置参数，设置了新的测试代码example4.py
 ### 7.10更新 ###
